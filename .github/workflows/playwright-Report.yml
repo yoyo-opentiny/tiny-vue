@@ -24,7 +24,7 @@ jobs:
     - name: Start dev server
       run: pnpm dev & sleep 5
     - name: Install Playwright browsers
-      run: pnpm -C examples/vue3 install:browser --with-deps
+      run: pnpm -C examples/vue3 install:browser --with-deps chromium
 
     - name: Run Playwright tests
       run: pnpm -C examples/vue3 test:e2e --project=chromium --shard ${{ matrix.shard }}
