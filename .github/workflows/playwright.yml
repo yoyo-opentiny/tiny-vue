@@ -16,8 +16,8 @@ jobs:
           node-version: 18
       - name: Install dependencies
         run: |
-          npm install -g pnpm
           npm ci
+          npm install -g pnpm
       - name: Run your tests
         run: |
           pnpm install
