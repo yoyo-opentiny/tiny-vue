@@ -19,9 +19,9 @@ jobs:
         run: |
           npm install -g pnpm
           pnpm install --no-frozen-lockfile
-      - name: Run your server
+      - name: Run server
         run: |
-              pnpm dev
-      - name: Run your tests
+              pnpm dev & sleep 5 
+      - name: Run e2e tests
         run: |
               pnpm test:e2e3
