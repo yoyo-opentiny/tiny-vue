@@ -2,7 +2,7 @@ name: Playwright Tests Report
 on:
   pull_request:
     types: [opened, reopened]
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 jobs:
   playwright-tests:
@@ -13,29 +13,29 @@ jobs:
       matrix:
         shard: [1/4, 2/4, 3/4, 4/4]
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 18
-    - name: Install dependencies
-      run: |
-        npm install -g pnpm
-        pnpm install --no-frozen-lockfile
-    - name: dev start
-      run: pnpm dev & sleep 5
-    - name: Install Playwright browsers
-      run: pnpm -C examples/vue3 install:browser --with-deps chromium
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: |
+          npm install -g pnpm
+          pnpm install --no-frozen-lockfile
+      - name: dev start
+        run: pnpm dev & sleep 5
+      - name: Install Playwright browsers
+        run: pnpm -C examples/vue3 install:browser --with-deps chromium
 
-    - name: Run Playwright tests
-      run: pnpm -C examples/vue3 test:e2e --project=chromium --shard ${{ matrix.shard }}
+      - name: Run Playwright tests
+        run: pnpm -C examples/vue3 test:e2e --project=chromium --shard=${{ matrix.shard }} --reporter=blob --workers=2
 
-    - name: Upload blob report to GitHub Actions Artifacts
-      if: always()
-      uses: actions/upload-artifact@v3
-      with:
-        name: all-blob-reports
-        path: blob-report
-        retention-days: 1
+      - name: Upload blob report to GitHub Actions Artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: all-blob-reports
+          path: examples/vue3/blob-report
+          retention-days: 1
   merge-reports:
     # Merge reports after playwright-tests, even if some shards have failed
     if: always()
@@ -43,27 +43,26 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 18
-    - name: Install dependencies
-      run: |
-        npm install -g pnpm
-        pnpm install --no-frozen-lockfile
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: |
+          npm install -g @playwright/test
 
-    - name: Download blob reports from GitHub Actions Artifacts
-      uses: actions/download-artifact@v3
-      with:
-        name: all-blob-reports
-        path: all-blob-reports
+      - name: Download blob reports from GitHub Actions Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: all-blob-reports
+          path: all-blob-reports
 
-    - name: Merge into HTML Report
-      run: npx playwright merge-reports --reporter html ./all-blob-reports 
+      - name: Merge into HTML Report
+        run: playwright merge-reports --reporter html ./all-blob-reports
 
-    - name: Upload HTML report
-      uses: actions/upload-artifact@v3
-      with:
-        name: html-report--attempt-${{ github.run_attempt }}
-        path: playwright-report
-        retention-days: 14 
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v3
+        with:
+          name: html-report--attempt-${{ github.run_attempt }}
+          path: playwright-report
+          retention-days: 14
