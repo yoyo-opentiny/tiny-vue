@@ -27,7 +27,7 @@ jobs:
         run: pnpm -C examples/vue3 install:browser --with-deps chromium
 
       - name: Run Playwright tests
-        run: pnpm -C examples/vue3 test:e2e --project=chromium --shard=${{ matrix.shard }} --reporter=blob --workers=2
+        run: pnpm -C examples/vue3 test:e2e --headless --project=chromium --shard=${{ matrix.shard }} --reporter=blob --workers=2
 
       - name: Upload blob report to GitHub Actions Artifacts
         if: always()
