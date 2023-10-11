@@ -102,7 +102,7 @@ jobs:
           retention-days: 1
   merge-reports:
     # Merge reports after playwright-tests, even if some shards have failed
-    if: always()
+    if: ${{ github.event_name == 'workflow_dispatch' && !inputs.testDemos  && always() }}
     needs: [playwright-tests]
 
     runs-on: ubuntu-latest
