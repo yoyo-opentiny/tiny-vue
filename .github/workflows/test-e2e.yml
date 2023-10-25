@@ -9,10 +9,6 @@ on:
         description: Name of directory from "examples/sites/demos/pc/app", such as `input, alert`. \n If it is "*", run all demos test
         required: true
         type: string
-      name:
-        description: Specifying a Name for this test
-        required: true
-        type: string
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
