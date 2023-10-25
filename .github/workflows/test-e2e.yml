@@ -29,7 +29,7 @@ jobs:
           title="${{ github.event.pull_request.title }}"
           components=$(echo $title | egrep -o '\[(.*?)\]')
           components=${components:1:-1}
-          echo "::warning file=app.js,line=1,col=5,endColumn=7::PR Title Missing"
+          echo "::warning file=app.js,line=1,col=5,endColumn=7::Missing semicolon"
           components=${components//,/' '}
           echo "::notice title=test components::${components}"
           echo "TEST_COMPONENTS=$components" >> "$GITHUB_ENV"
