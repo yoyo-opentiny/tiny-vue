@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   pr-test:
-    name: PR e2e Test
+    name: PR E2E Test
     if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     env:
@@ -74,7 +74,7 @@ jobs:
         run: pnpm test:e2e3 ${{ env.TEST_COMPONENTS }} --reporter=line
   dispatch-tests:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.testDemos != '*' }}
-    name: input Test
+    name: Dispatch Tests
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -116,7 +116,7 @@ jobs:
 
   dispatch-test-all:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.testDemos == '*' }}
-    name: input-tests-all
+    name: Dispatch All Test
     timeout-minutes: 60
     runs-on: ubuntu-latest
     strategy:
@@ -166,6 +166,7 @@ jobs:
           retention-days: 0.5
 
   dispatch-test-all-merge-reports:
+    name: "Merge Reports After Dispatch All Test"
     # Merge reports after playwright-tests, even if some shards have failed
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.testDemos == '*' && always() }}
     needs: [dispatch-test-all]
