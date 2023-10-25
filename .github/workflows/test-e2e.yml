@@ -1,5 +1,5 @@
 name: 🧪 E2E Test
-
+run-name: E2E Test ${{ (github.event_name == 'pull_request' && github.event.pull_request.title) }} ${{ (github.event_name == 'workflow_dispatch' && inputs.testDemos) }} by @${{ github.actor }}
 on:
   pull_request:
     branches: [dev, release, main, test-dev]
@@ -72,7 +72,7 @@ jobs:
 
       - name: E2E Test
         run: pnpm test:e2e3 ${{ env.TEST_COMPONENTS }} --reporter=line
-  input-tests:
+  dispatch-tests:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.testDemos != '*' }}
     name: input Test
     timeout-minutes: 60
@@ -114,7 +114,7 @@ jobs:
           components=${testDemos//,/' '}
           pnpm test:e2e3 $components --reporter=line
 
-  input-tests-all:
+  dispatch-test-all:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.testDemos == '*' }}
     name: input-tests-all
     timeout-minutes: 60
@@ -165,10 +165,10 @@ jobs:
           path: examples/vue3/blob-report
           retention-days: 0.5
 
-  merge-reports:
+  dispatch-test-all-merge-reports:
     # Merge reports after playwright-tests, even if some shards have failed
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.testDemos == '*' && always() }}
-    needs: [input-tests-all]
+    needs: [dispatch-test-all]
 
     runs-on: ubuntu-latest
     steps:
