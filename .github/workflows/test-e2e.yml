@@ -1,5 +1,5 @@
 name: 🧪 E2E Test
-run-name: E2E Test-#${{github.event.number}}'${{ (github.event_name == 'pull_request' && github.event.pull_request.title) }} ${{ (github.event_name == 'workflow_dispatch' && inputs.testDemos) }}' by @${{ github.actor }}
+run-name: E2E Test-#${{github.event.number}}-'${{ (github.event_name == 'pull_request' && github.event.pull_request.title) }} ${{ (github.event_name == 'workflow_dispatch' && inputs.testDemos) }}' by @${{ github.actor }}
 on:
   pull_request:
     branches: [dev, release, main, test-dev]
