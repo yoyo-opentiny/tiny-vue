@@ -8,7 +8,7 @@ on:
     inputs:
       testDemos:
         description: |
-          Name of directory from "examples/sites/demos/pc/app"
+          <div>Name of directory from "examples/sites/demos/pc/app"</div>
           such as `input, alert`.
           If it is "*", run all demos test
         required: true
