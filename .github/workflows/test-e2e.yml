@@ -1,0 +1,193 @@
+name: 🧪 E2E Test
+
+on:
+  pull_request:
+    branches: [dev, release, main]
+  workflow_dispatch:
+    inputs:
+      testDemos:
+        description: Name of directory from "examples/sites/demos/pc/app", such as `input, alert`. \n If it is "*", run all demos test
+        required: true
+        type: string
+      name:
+        description: Specifying a Name for this test
+        required: true
+        type: string
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  pr-test:
+    name: E2E Test ${{ github.event.pull_request.title }}
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    env:
+      TEST_COMPONENTS: ''
+    steps:
+      - name: Parse Title
+        id: parse-title
+        run: |
+          title="${{ github.event.pull_request.title }}"
+          components=$(echo $title | egrep -o '\[(.*?)\]')
+          if [ -z "$components" ]; then
+            echo "::warning ::PR Title Missing []"
+            echo "::stop-commands::{endtoken}"
+          fi
+          components=${components:1:-1}
+          if [ -z "$components" ]; then
+            echo "::warning ::PR Title Missing [xxx]"
+            echo "::stop-commands::{endtoken}"
+          fi
+          components=${components//,/' '}
+          echo "::notice title=test components::${components}"
+          echo "TEST_COMPONENTS=$components" >> "$GITHUB_ENV"
+
+      - uses: actions/checkout@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: pnpm install:browser --with-deps chromium
+
+      - name: E2E Test
+        run: pnpm test:e2e3 ${{ env.TEST_COMPONENTS }} --reporter=line
+  input-tests:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.testDemos != '*' }}
+    name: E2E Test ${{ inputs.name }}
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      - name: Install dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: pnpm install:browser --with-deps chromium
+
+      - name: Run Playwright tests
+        run: |
+          testDemos=${{ inputs.testDemos }}
+          components=${testDemos//,/' '}
+          pnpm test:e2e3 $components --reporter=line
+
+  input-tests-all:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.testDemos == '*' }}
+    name: E2E Test ${{ inputs.name }}
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1/4, 2/4, 3/4, 4/4]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      - name: Install dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: pnpm install:browser --with-deps chromium
+
+      - name: Run Playwright tests
+        run: pnpm test:e2e3 --shard=${{ matrix.shard }} --reporter=blob
+
+      - name: Upload blob report to GitHub Actions Artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: all-blob-reports
+          path: examples/vue3/blob-report
+          retention-days: 0.5
+
+  merge-reports:
+    # Merge reports after playwright-tests, even if some shards have failed
+    if: ${{ github.event_name == 'workflow_dispatch' && always() }}
+    needs: [input-tests-all]
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: |
+          npm install -g @playwright/test
+
+      - name: Download blob reports from GitHub Actions Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: all-blob-reports
+          path: all-blob-reports
+
+      - name: Merge into HTML Report
+        run: playwright merge-reports --reporter html ./all-blob-reports
+
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v3
+        with:
+          name: html-report--attempt-${{ github.run_attempt }}
+          path: playwright-report
+          retention-days: 7
