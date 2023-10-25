@@ -8,10 +8,11 @@ on:
     inputs:
       testDemos:
         description: |
-          <div>Name of directory from "examples/sites/demos/pc/app"</div>
+          Name of directory from "examples/sites/demos/pc/app",
           such as `input, alert`.
           If it is "*", run all demos test
         required: true
+        default: "*"
         type: string
 
 concurrency:
