@@ -31,8 +31,6 @@ jobs:
           components=${components:1:-1}
           if [ -z "$components" ]; then
             echo "::warning:: PR Title Missing [components...]"
-            stopMarker=$(uuidgen)
-            echo "::stop-commands::$stopMarker"
           fi
           components=${components//,/' '}
           echo "::notice title=test components::${components}"
