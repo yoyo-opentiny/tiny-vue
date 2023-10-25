@@ -29,9 +29,7 @@ jobs:
           title="${{ github.event.pull_request.title }}"
           components=$(echo $title | egrep -o '\[(.*?)\]')
           components=${components:1:-1}
-          if [ -z "$components" ]; then
-            echo "::warning:: PR Title Missing [components...]"
-          fi
+          echo "::warning:: PR Title Missing [components...]"
           components=${components//,/' '}
           echo "::notice title=test components::${components}"
           echo "TEST_COMPONENTS=$components" >> "$GITHUB_ENV"
