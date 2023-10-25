@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
   pr-test:
-    name: PR e2e Test ${{ github.event.pull_request.title }}
+    name: PR e2e Test
     if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     env:
@@ -79,7 +79,7 @@ jobs:
         run: pnpm test:e2e3 ${{ env.TEST_COMPONENTS }} --reporter=line
   input-tests:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.testDemos != '*' }}
-    name: input Test ${{ inputs.name }}
+    name: input Test
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -121,7 +121,7 @@ jobs:
 
   input-tests-all:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.testDemos == '*' }}
-    name: input-tests-all ${{ inputs.name }}
+    name: input-tests-all
     timeout-minutes: 60
     runs-on: ubuntu-latest
     strategy:
