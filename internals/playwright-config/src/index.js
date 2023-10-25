@@ -39,12 +39,6 @@ const Config = ({ testDir, port }) => ({
     /* Only on CI systems run the tests headless */
     headless: !!process.env.CI
   },
-  webServer: {
-    command: 'pnpm dev',
-    url: `http://localhost:${port}`,
-    reuseExistingServer: !process.env.CI,
-    timeout: 120 * 1000,
-  },
   projects: [
     {
       name: 'chromium',
