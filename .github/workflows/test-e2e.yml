@@ -43,7 +43,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-
+      - name: Cache Playwright Installation
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
       - name: Get pnpm store directory
         id: pnpm-cache
         run: |
