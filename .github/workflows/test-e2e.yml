@@ -28,14 +28,11 @@ jobs:
         run: |
           title="${{ github.event.pull_request.title }}"
           components=$(echo $title | egrep -o '\[(.*?)\]')
-          if [ -z "$components" ]; then
-            echo "::warning ::PR Title Missing []"
-            echo "::stop-commands::{endtoken}"
-          fi
           components=${components:1:-1}
           if [ -z "$components" ]; then
-            echo "::warning ::PR Title Missing [xxx]"
-            echo "::stop-commands::{endtoken}"
+            echo "::warning:: PR Title Missing [components...]"
+            stopMarker=$(uuidgen)
+            echo "::stop-commands::$stopMarker"
           fi
           components=${components//,/' '}
           echo "::notice title=test components::${components}"
