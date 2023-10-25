@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-test('可缩放文本域', async ({ page }) => {
+test('可缩放文本域2', async ({ page }) => {
   page.on('pageerror', (exception) => expect(exception).toBeNull())
   await page.goto('http://localhost:7130/pc/input/resize')
   const textarea = await page.locator('.demo-input .tiny-textarea > .tiny-textarea-display-only > textarea')
