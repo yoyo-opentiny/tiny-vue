@@ -2,7 +2,7 @@ name: 🧪 E2E Test
 
 on:
   pull_request:
-    branches: [dev, release, main]
+    branches: [dev, release, main, test-dev]
   workflow_dispatch:
     inputs:
       testDemos:
