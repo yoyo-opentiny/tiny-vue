@@ -1,5 +1,5 @@
 on: pull_request_target
-
+name: PR Welocme
 jobs:
   welcome:
     runs-on: ubuntu-latest
@@ -7,8 +7,6 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            // Get a list of all issues created by the PR opener
-            // See: https://octokit.github.io/rest.js/#pagination
             const creator = context.payload.sender.login
             const opts = github.rest.issues.listForRepo.endpoint.merge({
               ...context.issue,
