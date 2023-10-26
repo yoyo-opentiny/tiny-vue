@@ -8,7 +8,6 @@ on:
           Name of directory from "examples/sites/demos/pc/app",
           such as `input, alert`.
         required: true
-        default: '*'
         type: string
 concurrency:
   group: ${{ github.workflow }}-${{ github.sha }}
