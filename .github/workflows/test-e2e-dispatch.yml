@@ -1,4 +1,4 @@
-name: 🧪 E2E Test Dispatch
+name: E2E Test Dispatch
 run-name: E2E Test Dispatch--${{ inputs.testDemos }}--by @${{ github.actor }}
 on:
   workflow_dispatch:

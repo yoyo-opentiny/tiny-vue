@@ -1,4 +1,4 @@
-name: 🧪 E2E Test ALL
+name: E2E Test ALL
 run-name: E2E Test-all--by @${{ github.actor }}
 on:
   workflow_dispatch:
