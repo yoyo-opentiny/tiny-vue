@@ -1,5 +1,5 @@
 name: E2E Test Dispatch
-run-name: E2E Test Dispatch--${{ inputs.testDemos }}--by @${{ github.actor }}
+run-name: E2E Test Dispatch--${{ inputs.testDemos }}--
 on:
   workflow_dispatch:
     inputs:
