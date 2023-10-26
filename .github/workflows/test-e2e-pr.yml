@@ -28,7 +28,7 @@ jobs:
               components = [...new Set(components)].slice(0, 3).join(' ')
               core.exportVariable('TEST_COMPONENTS', components)
             } else {
-              core.setFailed('No content found in PR title brackets. Title must be like "fix(components): [input, alert] fix xxx bug"')
+              core.setFailed('No content found in PR title brackets. Title must be like "fix(components): [input, alert] fix xxx bug", Please make sure you've read our [contributing guide](CONTRIBUTING.md)')
             }
       - uses: actions/checkout@v3
       - name: Setup pnpm
