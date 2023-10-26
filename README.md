@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">An enterprise-class UI component library, support both Vue.js 2 and Vue.js 3, as well as PC and mobile.</p>
-
+s
 English | [简体中文](README.zh-CN.md)
 
 🌈 Features:
