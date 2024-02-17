@@ -1,4 +1,4 @@
-name: Preview Deploy2
+name: test-e2e-pr-comment
 
 on:
   workflow_run:
@@ -15,6 +15,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: user-tip
+          run-id: ${{ github.event.workflow_run.workflow_id }}
           path: user-tip.txt
 
       - id: txtToOutput
