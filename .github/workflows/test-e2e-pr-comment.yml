@@ -8,6 +8,8 @@ on:
 
 jobs:
   comment:
+    permissions: 
+     pull-requests: write 
     name: Comment User Tip
     runs-on: ubuntu-latest
     steps:
