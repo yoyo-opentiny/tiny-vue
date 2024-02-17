@@ -1,4 +1,4 @@
-name: test-e2e-pr-comment2
+name: test-e2e-pr-comment
 
 on:
   workflow_run:
@@ -11,6 +11,19 @@ jobs:
     name: Comment User Tip
     runs-on: ubuntu-latest
     steps:
+      - name: Download Pr Artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: ${{ github.event.workflow_run.workflow_id }}
+          name: pr
+          if_no_artifact_found: success
+      - name: Save PR Id
+        id: pr
+        run: |
+          if [ -f user-tip.txt ]; then
+            echo "::set-output name=id::$(<pr-id.txt)"
+          fi
+
       - name: Download user-tip.txt
         uses: dawidd6/action-download-artifact@v2
         with:
@@ -24,8 +37,9 @@ jobs:
             echo "::set-output name=text::$(<user-tip.txt)"
           fi
       - uses: thollander/actions-comment-pull-request@v2
-        if: ${{ steps.txtToOutput.outputs.text }}
+        if: ${{ steps.txtToOutput.outputs.text && steps.pr.outputs.id }}
         with:
           message: |
             ${{ steps.txtToOutput.outputs.text }}
           comment_tag: e2e-tip
+          pr_number: ${{ steps.pr.outputs.id }}
