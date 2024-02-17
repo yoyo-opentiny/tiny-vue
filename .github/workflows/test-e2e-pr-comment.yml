@@ -12,11 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download user-tip.txt
-        uses: actions/download-artifact@v4
+        uses: dawidd6/action-download-artifact@v2
         with:
+          workflow: ${{ github.event.workflow_run.workflow_id }}
           name: user-tip
-          run-id: ${{ github.event.workflow_run.workflow_id }}
-          path: user-tip.txt
+          if_no_artifact_found: success
 
       - id: txtToOutput
         run: |
