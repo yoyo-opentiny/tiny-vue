@@ -59,6 +59,16 @@ jobs:
           name: user-tip
           path: user-tip.txt
           retention-days: 1
+      - name: Save PR number
+        if: ${{ steps.parseTitle.outputs.tip }}
+        run: echo ${{ github.event.number }} > ./pr-id.txt
+
+      - name: Upload PR number
+        if: ${{ steps.parseTitle.outputs.tip }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr
+          path: ./pr-id.txt
       - name: Parse Test Cli
         id: parsetestCli
         uses: actions/github-script@v6
