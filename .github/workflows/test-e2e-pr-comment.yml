@@ -20,10 +20,8 @@ jobs:
       - name: Save PR Id
         id: pr
         run: |
-          if [ -f user-tip.txt ]; then
-            echo 'id<<EOF' >> $GITHUB_OUTPUT
-            cat pr-id.txt >> $GITHUB_OUTPUT
-            echo 'EOF' >> $GITHUB_OUTPUT
+          if [ -f pr-id.txt ]; then
+            echo "id=$(cat pr-id.txt)" >> $GITHUB_OUTPUT
           fi
 
       - name: Download user-tip.txt
