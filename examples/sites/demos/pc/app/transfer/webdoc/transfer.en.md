@@ -1,7 +1,7 @@
 ---
-title: Transfer shuttle box
+title: Transfer
 ---
 
-# Transfer shuttle box
+# Transfer
 
-<div>Shuttle box, which provides bidirectional selection of table data.</div>
+<div>Transfer realizes the two-way exchange of data between two tables.</div>

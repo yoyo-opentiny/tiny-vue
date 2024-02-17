@@ -30,8 +30,8 @@ import {
 } from './index'
 import userPopper from '../common/deps/vue-popper'
 import { guid } from '../common/string'
-import { ISharedRenderlessParamHooks, ISharedRenderlessParamUtils } from 'types/shared.type'
-import { ITooltipApi, ITooltipProps, ITooltipState } from 'types/tooltip.type'
+import type { ISharedRenderlessParamHooks, ISharedRenderlessParamUtils } from 'types/shared.type'
+import type { ITooltipApi, ITooltipProps, ITooltipState } from 'types/tooltip.type'
 
 export const api = [
   'state',
@@ -75,13 +75,12 @@ export const renderless = (
     onUnmounted,
     inject
   }: ISharedRenderlessParamHooks,
-  { vm, emit, refs, slots, nextTick, parent }: ISharedRenderlessParamUtils<never>
+  { vm, emit, slots, nextTick, parent }: ISharedRenderlessParamUtils<never>
 ) => {
   const api = {} as ITooltipApi
-  // 因为tootip组件由单层组件变成双层组件，所以parent需要再往上找一层
-  const popperParam = { emit, props, nextTick, toRefs, reactive, parent: parent.$parent, refs }
 
   const popperVmRef = {} as { popper: HTMLElement }
+  const popperParam = { emit, props, nextTick, toRefs, reactive, parent: parent.$parent, vm, popperVmRef }
 
   Object.assign(popperParam, { slots, onBeforeUnmount, onDeactivated, watch })
 
@@ -95,7 +94,7 @@ export const renderless = (
     show: show({ api, state, props }),
     hide: hide(api),
     destroyed: destroyed({ state, api }),
-    bindPopper: bindPopper({ vm, refs, nextTick, popperVmRef }),
+    bindPopper: bindPopper({ vm, nextTick, popperVmRef }),
     watchFocusing: watchFocusing(state),
     removeFocusing: removeFocusing({ api, state }),
     handleBlur: handleBlur({ api, state }),

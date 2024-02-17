@@ -10,28 +10,61 @@ Design website: [Administrative side specification design variable] (https://rnd
 
 Basic style variable `npm` Repository path: `@opentiny/vue-theme/theme`
 
-### Using Predefined Topics and Dynamically Switching Topics
+### Using predefined themes and dynamically switching themes
 
-At present, two sets of themes are officially provided: default theme and unlimited theme.
+Currently, the official offers 4 sets of themes:
 
-Topic initialization and dynamic theme switching are described as follows:
+-Default Theme
+-Infinity Theme ` tinyInfinityTheme`
+-Aurora Theme ` tinyAuroraTheme`
+-XDesign Theme ` tinySmbTheme`
+
+#### Using predefined themes through alias [Currently only supported: Eurora theme and XDesign theme]
+
+vue.config.js define
 
 ```js
-import TinyThemeTool from' @opentiny/vue-theme/theme-tool.js'
-import {tinyInfinityTheme} from'@opentiny/vue-theme/theme' //Infinite theme
+chainWebpack: (config) => {
+  // XDesign Theme
+  config.resolve.alias.set('@opentiny/vue-theme', '@opentiny/vue-theme/smb-theme')
+  // Aurora Theme : The aurora theme is to replace all the 'smb' characters in the above SMB themes with 'aurora'
+}
+```
 
-const theme = new TinyThemeTool(tinyInfinityTheme,'tinyStyleSheetId') / / Initialize the infinite theme.
+vite.config.js define
 
-//Customize the theme data format.
+```js
+resolve: {
+  alias: [
+    // XDesign Theme
+    {
+      find: /\@opentiny\/vue-theme\/(?!(smb))/,
+      replacement: '@opentiny/vue-theme/smb-theme/'
+    }
+  ]
+}
+```
 
+#### The specific usage of theme initialization and dynamic theme switching is shown below, and the following code is added to the main.ts file.
+
+```js
+import TinyThemeTool from ' @opentiny/vue-theme/theme-tool.js'
+
+// Infinite theme
+import { tinyInfinityTheme } from '@opentiny/vue-theme/theme'
+
+// Initialize the infinite theme.
+const theme = new TinyThemeTool(tinyInfinityTheme, 'tinyStyleSheetId')
+
+// Customize the theme data format.
 const tinyTestTheme = {
-id: 'tiny-test-theme', //Unique ID of a topic. Each topic must be unique.
-name: 'testTheme', //English name of the theme
-cnName:'Test Topic', //Chinese name of the topic
-data: {'ti-base-color':'#f2f2f3'} //Subject data
+  id: 'tiny-test-theme', // Unique ID of a topic. Each topic must be unique.
+  name: 'testTheme', // English name of the theme
+  cnName: 'Test Topic', // Chinese name of the topic
+  data: { 'ti-base-color': '#f2f2f3' } // Subject data
 }
 
-//Dynamic theme switching
+// Dynamic theme switching
 
 theme.changeTheme(tinyTestTheme)
 ```
@@ -65,10 +98,10 @@ If you want to control the `css` variable through `js`, you can do this:
 ```js
 const el = document.documentElement
 
-//Obtain the CSS variable.
+// Obtain the CSS variable.
 getComputedStyle(el).getPropertyValue('--ti-base-color-white')
 
-//Set the CSS variable.
+// Set the CSS variable.
 el.style.setProperty('--ti-base-color-white', '#fefefe')
 ```
 
@@ -84,11 +117,15 @@ Replace all the old variable names in the `src` directory in the project as an e
 
 Step 1: Click to download the mapping table `newVars.json` and the replacement script `replaceVar.js`.
 
-<a :href="$pub('@demos/resource/newVars.json')" target="_blank" download="newVars.json">newVars.json files</a> and <a :href="$pub('@demos/resource/replaceVar.js')" target="_blank" download="replaceVar.js">replaceVar.js files</a>
+<script setup>
+  import { pubUrl } from '@/tools'
+</script>
+
+<a :href="pubUrl('@demos/resource/newVars.json')" target="_blank" download="newVars.json">newVars.json files</a> and <a :href="pubUrl('@demos/resource/replaceVar.js')" target="_blank" download="replaceVar.js">replaceVar.js files</a>
 
 Step 2: Place `newVars.json` and `replaceVar.js` in the root directory of the project, which is at the same level as the src directory.
 
-<img src="@demos/resource/theme-demo.png" class="image" style="box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.14); width: 30vw" ><br><br>
+<img :src="pubUrl('@demos/resource/theme-demo.png')" class="image" style="box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.14); width: 30vw" ><br><br>
 
 Step 3: Run the following command in the root directory of the project:
 

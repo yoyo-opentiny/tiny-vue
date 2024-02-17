@@ -1,6 +1,6 @@
 import type { ExtractPropTypes } from 'vue'
-import { breadcrumbItemProps } from '@/breadcrumb-item/src'
-import { ISharedRenderlessFunctionParams, ISharedRenderlessParamUtils } from './shared.type'
+import type { breadcrumbItemProps } from '@/breadcrumb-item/src'
+import type { ISharedRenderlessFunctionParams, ISharedRenderlessParamUtils } from './shared.type'
 
 export type IBreadcrumbItemProps = ExtractPropTypes<typeof breadcrumbItemProps>
 
@@ -9,6 +9,7 @@ export type IBreadcrumbItemRenderlessParams = ISharedRenderlessFunctionParams<ne
 }
 
 export interface IBreadcrumbItemApi {
+  state: string | undefined
   linkClick: (event: MouseEvent) => void
 }
 

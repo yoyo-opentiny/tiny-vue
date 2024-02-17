@@ -9,7 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import { ISearchRenderlessParams, ISearchValue } from '@/types'
+import type { ISearchRenderlessParams, ISearchValue } from '@/types'
 import { on, off } from '../common/deps/dom'
 import PopupManager from '../common/deps/popup-manager'
 import { isObject, typeOf } from '../common/type'
@@ -140,7 +140,8 @@ export const clear =
     refs.input.focus()
     state.focus = true
 
-    emit('change', [], '')
+    // 应先更新modelValue的值，才能触发change事件。所以不同步aui
     api.emitInput('', state.searchValue)
+    emit('change', [], '')
     emit('clear')
   }

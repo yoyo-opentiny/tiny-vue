@@ -11,7 +11,9 @@
  -->
 
 <script lang="tsx">
-import { $prefix, setup, h, defineComponent, props } from '@opentiny/vue-common' // 此处引入 h 是为了防止打包后 h 被重命名导致组件报错的问题
+import { $prefix, setup, h, defineComponent, props } from '@opentiny/vue-common'
+
+// 此处引入 h 是为了防止打包后 h 被重命名导致组件报错的问题
 import { renderless, api } from '@opentiny/vue-renderless/upload/vue'
 import UploadDragger from '@opentiny/vue-upload-dragger'
 import Modal from '@opentiny/vue-modal'
@@ -82,23 +84,30 @@ export default defineComponent({
     } = this
 
     const defaultSlot = (this.slots.default && this.slots.default()) || []
+    const operateSlot = this.slots.operate && this.slots.operate()
+    const tipSlot = this.slots.tip && this.slots.tip()
 
     const hidden = isHidden && fileList.length >= limit
 
     return (
       <div
-        class={['tiny-upload', `tiny-upload--${listType}`, disabled ? 'is-disabled' : '', hidden ? 'is-hidden' : '']}
-        onClick={($event) => handleClick($event, type)}
-        onPaste={handlePaste}
-        onKeydown={handleKeydown}
-        tabindex="0">
-        {drag ? (
-          <UploadDragger disabled={disabled} onFile={uploadFiles}>
-            {defaultSlot}
-          </UploadDragger>
-        ) : (
-          defaultSlot
-        )}
+        class={['tiny-upload', `tiny-upload--${listType}`, disabled ? 'is-disabled' : '', hidden ? 'is-hidden' : '']}>
+        <div
+          class="tiny-upload-btn"
+          onClick={($event) => handleClick($event, type)}
+          onPaste={handlePaste}
+          onKeydown={handleKeydown}
+          tabindex="0">
+          {drag ? (
+            <UploadDragger disabled={disabled} onFile={uploadFiles}>
+              {defaultSlot}
+            </UploadDragger>
+          ) : (
+            defaultSlot
+          )}
+        </div>
+        {operateSlot}
+        {tipSlot}
         <input
           class="tiny-upload__input"
           type="file"

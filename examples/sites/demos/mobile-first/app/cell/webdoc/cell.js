@@ -6,11 +6,11 @@ export default {
       demoId: 'basic-usage',
       name: {
         'zh-CN': '基本用法',
-        'en-US': 'events'
+        'en-US': 'Basic Usage'
       },
       desc: {
-        'zh-CN': '<p><p>',
-        'en-US': '<p>bbutton click</p>'
+        'zh-CN': '<p></p>',
+        'en-US': '<p></p>'
       },
       codeFiles: ['basic-usage.vue']
     },
@@ -18,11 +18,11 @@ export default {
       demoId: 'with-date-picker',
       name: {
         'zh-CN': '结合日期选择一起使用',
-        'en-US': 'events'
+        'en-US': 'Used in conjunction with date selection'
       },
       desc: {
-        'zh-CN': '<p><p>',
-        'en-US': '<p>bbutton click</p>'
+        'zh-CN': '<p></p>',
+        'en-US': '<p></p>'
       },
       codeFiles: ['with-date-picker.vue']
     },
@@ -30,11 +30,11 @@ export default {
       demoId: 'placeholder',
       name: {
         'zh-CN': '占位文本',
-        'en-US': 'events'
+        'en-US': 'Placeholder Text'
       },
       desc: {
-        'zh-CN': '<p><p>',
-        'en-US': '<p>bbutton click</p>'
+        'zh-CN': '<p></p>',
+        'en-US': '<p></p>'
       },
       codeFiles: ['placeholder.vue']
     },
@@ -42,11 +42,11 @@ export default {
       demoId: 'disabled',
       name: {
         'zh-CN': '禁用',
-        'en-US': 'events'
+        'en-US': 'disabled'
       },
       desc: {
-        'zh-CN': '<p><p>',
-        'en-US': '<p>bbutton click</p>'
+        'zh-CN': '<p></p>',
+        'en-US': '<p></p>'
       },
       codeFiles: ['disabled.vue']
     },
@@ -54,14 +54,13 @@ export default {
       demoId: 'icon',
       name: {
         'zh-CN': 'icon 图标',
-        'en-US': 'events'
+        'en-US': 'icon'
       },
       desc: {
-        'zh-CN': '<p>可以传入一个 svg 对象替换默认的下拉图标<p>',
+        'zh-CN': '<p>可以传入一个 svg 对象替换默认的下拉图标</p>',
         'en-US': '<p>bbutton click</p>'
       },
       codeFiles: ['icon.vue']
     }
-  ],
-  apis: []
+  ]
 }

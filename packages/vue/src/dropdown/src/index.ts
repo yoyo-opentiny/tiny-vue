@@ -5,10 +5,7 @@ export const dropdownProps = {
   ...$props,
   modelValue: [String, Number],
   type: String,
-  trigger: {
-    type: String,
-    default: 'hover' // 此处aui默认更改为 click
-  },
+  trigger: String, // 默认主题为 'hover'
   size: {
     type: String,
     default: ''
@@ -71,7 +68,8 @@ export const dropdownProps = {
   inheritWidth: {
     type: Boolean,
     default: false
-  }
+  },
+  suffixIcon: Object
 }
 export default defineComponent({
   name: $prefix + 'Dropdown',

@@ -35,7 +35,8 @@ export default defineComponent({
     'popperClass',
     'popperAppendToBody',
     'dropConfig',
-    'tooltipConfig'
+    'tooltipConfig',
+    'separator'
   ],
   components: {
     TabNav,
@@ -101,7 +102,8 @@ export default defineComponent({
         popperClass,
         popperAppendToBody,
         dropConfig,
-        tooltipConfig
+        tooltipConfig,
+        separator: state.separator
       },
       on: {
         'tab-drag-start': handleTabDragStart,
@@ -131,10 +133,11 @@ export default defineComponent({
         class={{
           'tiny-tabs': true,
           'tiny-tabs--card': tabStyle === 'card',
-          [`tiny-tabs--${position}`]: true,
+          [`tiny-tabs--${!state.separator ? position : 'top'}`]: true,
           'tiny-tabs--border-card': tabStyle === 'border-card',
           'tiny-tabs--button-card': tabStyle === 'button-card',
-          'tiny-tabs--small': size === 'small'
+          'tiny-tabs--small': size === 'small',
+          'tiny-tabs--large': size === 'large'
         }}>
         {position !== 'bottom' ? [header, panels] : [panels, header]}
       </div>

@@ -1,11 +1,11 @@
 <template>
   <div>
     <tiny-button @click="setValue">设置值</tiny-button>
-    <tiny-slider v-model="value" ref="slider"></tiny-slider>
+    <tiny-slider v-model="value"></tiny-slider>
   </div>
 </template>
 
-<script lang="jsx">
+<script>
 import { Slider, Button } from '@opentiny/vue'
 
 export default {

@@ -1,4 +1,4 @@
-import {
+import type {
   IUploadListState,
   IUploadListApi,
   IUploadListProps,
@@ -31,6 +31,7 @@ import {
   getNotSuccessFiles
 } from './index'
 import { getToken, initService } from '../file-upload'
+import { formatFileSize } from '../common/string'
 import { getApi } from '../file-upload/vue'
 
 export const api = [
@@ -52,7 +53,8 @@ export const api = [
   'reUpload',
   'remove',
   'handleTriggerClick',
-  'chooseFile'
+  'chooseFile',
+  'formatFileSize'
 ]
 
 export const renderless = (
@@ -72,14 +74,14 @@ export const renderless = (
     progressType: designConfig?.state?.progressType || 'circle',
     progressWidth: designConfig?.state?.progressWidth,
     progressStrokeWidth: designConfig?.state?.progressStrokeWidth || 6,
-    tooltipDisabled: designConfig?.state?.tooltipDisabled === false ? false : true,
+    tooltipDisabled: designConfig?.state?.tooltipDisabled !== false,
     closeComponent: designConfig?.icons?.closeComponent || 'icon-close',
     preViewComponent: designConfig?.icons?.preViewComponent,
     failUploadFileCount: computed(() =>
       props.files.reduce((total, item) => (total += item.status === 'fail' ? 1 : 0), 0)
     ),
     startPostion: 0,
-    screenType: mode === 'mobile' ? true : false,
+    screenType: mode === 'mobile',
     showPanel: false,
     showTriggerPanel: false,
     triggerClickType: '',
@@ -112,7 +114,8 @@ export const renderless = (
     handleTriggerClick: handleTriggerClick({ state, props }),
     chooseFile: chooseFile({ state, constants }),
     calcVisible: calcVisible({ props, constants, emit }),
-    getNotSuccessFiles: getNotSuccessFiles({ props, constants })
+    getNotSuccessFiles: getNotSuccessFiles({ props, constants }),
+    formatFileSize
   })
 
   props.listType === constants.LIST_TYPE.DRAG_SINGLE &&

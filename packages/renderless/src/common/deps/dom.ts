@@ -10,7 +10,8 @@
  *
  */
 
-import { hasOwn, isObject, isNull } from '../type'
+import { hasOwn, isNull } from '../type'
+import globalConfig from '../global'
 
 export const isServer = typeof window === 'undefined'
 const SPECIAL_CHARS_REGEXP = /([:\-_]+(.))/g
@@ -25,24 +26,13 @@ const camelCase = (name: string) =>
     .replace(MOZ_HACK_REGEXP, 'Moz$1')
 
 /** 绑定事件 */
-export const on = (
-  el: EventTarget,
-  event: any,
-  handler: (this: HTMLElement, ev: any) => any,
-  options: boolean = false
-) => {
+export const on = (el: EventTarget, event: any, handler: (this: HTMLElement, ev: any) => any, options = false) => {
   if (el && event && handler) {
     el.addEventListener(event, handler, options)
   }
 }
 /** 移除事件 */
-export const off = (
-  el: EventTarget,
-  event: any,
-  handler: (this: HTMLElement, ev: any) => any,
-  options: boolean = false
-) => {
-  window.document
+export const off = (el: EventTarget, event: any, handler: (this: HTMLElement, ev: any) => any, options = false) => {
   if (el && event) {
     el.removeEventListener(event, handler, options)
   }
@@ -52,6 +42,7 @@ export const off = (
 export const once = (el: HTMLElement, event: any, fn: (this: HTMLElement, ev: any) => any) => {
   const listener = function () {
     if (fn) {
+      // eslint-disable-next-line prefer-rest-params
       fn.apply(this, arguments)
     }
 
@@ -223,11 +214,6 @@ export const isInContainer = (el: HTMLElement, container: HTMLElement) => {
   )
 }
 
-/** 是否为虚拟节点   TINY-NO-USED ⭐ 全局未使用
- * ⭐ 仅能判断vue2的节点。  vue3的节点没有 componentOptions 属性。
- */
-export const isVNode = (node: any) => node !== null && isObject(node) && hasOwn.call(node, 'componentOptions')
-
 /** 查询页面的位置和尺寸
  * @returns scrollTop ： document 或 body的滚动位置
  * @returns scrollLeft ： document 或 body的滚动位置
@@ -235,8 +221,9 @@ export const isVNode = (node: any) => node !== null && isObject(node) && hasOwn.
  * @returns visibleWidth ： 可视区宽度（不含滚动条）
  */
 export const getDomNode = () => {
-  let documentElement = document.documentElement
-  let bodyElem = document.body
+  const viewportWindow = globalConfig.viewportWindow || window
+  let documentElement = viewportWindow.document.documentElement
+  let bodyElem = viewportWindow.document.body
 
   return {
     scrollTop: documentElement.scrollTop || bodyElem.scrollTop,
@@ -266,7 +253,7 @@ export const preventDefault = (event, isStopPropagation) => {
 }
 
 const overflowScrollReg = /scroll|auto|overlay/i
-const defaultRoot = isServer ? void 0 : window
+const defaultRoot = isServer ? undefined : window
 
 const isElement = (node) => node.tagName !== 'HTML' && node.tagName !== 'BODY' && node.nodeType === 1
 
@@ -284,4 +271,25 @@ export const getScrollParent = (el, root = defaultRoot) => {
   }
 
   return root
+}
+
+// 判断body的后代元素是否是隐藏的
+export const isDisplayNone = (elm) => {
+  if (isServer) return false
+
+  if (elm) {
+    const computedStyle = getComputedStyle(elm)
+
+    if (computedStyle.getPropertyValue('position') === 'fixed') {
+      if (computedStyle.getPropertyValue('display') === 'none') {
+        return true
+      } else if (elm.parentNode !== document.body) {
+        return isDisplayNone(elm.parentNode)
+      }
+    } else {
+      return elm.offsetParent === null
+    }
+  }
+
+  return false
 }

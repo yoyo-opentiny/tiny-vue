@@ -29,42 +29,72 @@
     display: inline-block;
   }
 
-  &__trigger {
+  & &__trigger:not(.tiny-button) {
+    display: flex;
+    align-items: center;
+
+    .tiny-svg {
+      margin-top: var(--ti-dropdown-trigger-svg-margin-top);
+      margin-bottom: var(--ti-dropdown-trigger-svg-margin-bottom);
+      vertical-align: top;
+    }
+
+    &:not(:has(.@{dropdown-prefix-cls}__title)) > .@{dropdown-prefix-cls}__suffix-inner {
+      .tiny-svg {
+        width: var(--ti-dropdown-trigger-only-svg-width);
+        height: var(--ti-dropdown-trigger-only-svg-height);
+        margin: 2px;
+      }
+      &:hover {
+        background-color: var(--ti-dropdown-trigger-only-svg-hover-bg-color);
+        border-radius: var(--ti-dropdown-trigger-only-svg-hover-radius);
+      }
+    }
+  }
+
+  & &__trigger {
     .@{dropdown-prefix-cls}__title {
       line-height: var(--ti-dropdown-line-height);
+      margin-right: var(--ti-dropdown-trigger-title-margin-right);
     }
 
     .@{svg-prefix-cls} {
       fill: var(--ti-dropdown-icon-color);
       font-size: var(--ti-dropdown-icon-size);
-      vertical-align: middle;
-      margin-top: -4px;
-      margin-left: var(--ti-dropdown-trigger-svg-margin-left);
     }
 
     &.@{css-prefix}button .@{svg-prefix-cls} {
       fill: var(--ti-dropdown-button-icon-color);
       font-size: var(--ti-dropdown-button-icon-size);
+      margin-left: var(--ti-dropdown-trigger-svg-margin-left);
     }
 
     &.@{css-prefix}button--default .@{svg-prefix-cls} {
       fill: var(--ti-button-normal-text-color);
     }
 
-    &:not(.@{dropdown-prefix-cls}__caret-button):hover {
+    &:not(.@{dropdown-prefix-cls}__caret-button):not(.is-disabled):hover {
       color: var(--ti-dropdown-text-color-hover);
 
       .@{svg-prefix-cls} {
         fill: var(--ti-dropdown-icon-color-hover);
       }
+    }
 
-      &[disabled] {
-        color: var(--ti-dropdown-text-color-disabled);
+    &.is-disabled {
+      cursor: not-allowed;
+      color: var(--ti-dropdown-text-color-disabled);
 
-        .@{svg-prefix-cls} {
-          fill: var(--ti-dropdown-text-color-disabled);
-        }
+      .@{svg-prefix-cls} {
+        fill: var(--ti-dropdown-text-color-disabled);
       }
+    }
+  }
+
+  & &__border {
+    .@{dropdown-prefix-cls}__title {
+      line-height: var(--ti-dropdown-line-height);
+      margin-right: var(--ti-dropdown-trigger-title-margin-right);
     }
   }
 
@@ -88,17 +118,22 @@
     }
   }
 
-  .@{dropdown-prefix-cls}__title-button {
+  & .@{dropdown-prefix-cls}__title-button {
     padding-left: var(--ti-dropdown-title-button-padding-left);
     padding-right: var(--ti-dropdown-title-button-padding-right);
+
+    &.is-disabled.tiny-button--default:hover {
+      z-index: 0;
+    }
   }
 
-  .@{dropdown-prefix-cls}__caret-button {
+  & &__trigger.@{dropdown-prefix-cls}__caret-button {
     padding-left: var(--ti-dropdown-caret-button-padding-left);
     padding-right: var(--ti-dropdown-caret-button-padding-right);
     position: relative;
     border-left: none;
     min-width: var(--ti-dropdown-caret-button-min-width);
+    line-height: 1;
 
     &:before {
       content: '';
@@ -117,7 +152,7 @@
       background: var(--ti-dropdown-caret-line-bg-color-default);
     }
 
-    &.@{css-prefix}button--default:hover:before {
+    &.@{css-prefix}button--default:hover:not(.is-disabled):before {
       background-color: var(--ti-dropdown-caret-line-bg-color-default-hover);
     }
 
@@ -126,7 +161,7 @@
       margin-bottom: var(--ti-dropdown-caret-line-margin-bottom-hover);
     }
 
-    svg {
+    .tiny-svg {
       padding-left: var(--ti-dropdown-caret-svg-padding-left);
       margin: var(--ti-dropdown-caret-svg-margin-vertical) var(--ti-dropdown-caret-svg-margin-horizontal);
     }
@@ -135,15 +170,6 @@
   .@{dropdown-prefix-cls}-selfdefine:focus:active,
   .@{dropdown-prefix-cls}-selfdefine:focus:not(.focusing) {
     outline-width: 0;
-  }
-
-  [disabled] {
-    cursor: not-allowed;
-    color: var(--ti-dropdown-text-color-disabled);
-
-    svg {
-      fill: var(--ti-dropdown-text-color-disabled);
-    }
   }
 
   &:hover {

@@ -3,7 +3,6 @@
  */
 import fs from 'fs-extra'
 import { EOL as endOfLine } from 'node:os'
-import minimist from 'minimist'
 import {
   getopentinyVersion,
   pathFromWorkspaceRoot,
@@ -13,9 +12,6 @@ import {
 } from '../../shared/utils'
 import { getComponents } from '../../shared/module-utils'
 import handlebarsRender from './handlebars.render'
-
-const argv = minimist(process.argv.slice(2))
-const { tiny_mode = 'pc' } = argv
 
 const version = getopentinyVersion({ key: 'version' })
 const outputDir = 'packages/vue'
@@ -53,7 +49,7 @@ export const install = (app, opts = {}) => {
 
 const buildFullRuntime = () => {
   const outputPath = pathFromWorkspaceRoot(outputDir, 'app.ts')
-  const components = getComponents(tiny_mode)
+  const components = getComponents('all')
   const includeTemplate: string[] = []
   const componentsTemplate: string[] = []
 
@@ -65,7 +61,7 @@ const buildFullRuntime = () => {
   })
 
   components.forEach((item) => {
-    if (item.inEntry !== false && !item.path.includes('river')) {
+    if (item.inEntry !== false && !item.path.includes('river') && !item.path.includes('chart-beta')) {
       const component = capitalizeKebabCase(item.name)
 
       componentsTemplate.push(`  ${component}`)

@@ -12,8 +12,8 @@ import { Button as TinyButton, Notify } from '@opentiny/vue'
 function baseClick() {
   Notify({
     type: 'info',
-    title: (h, params) => <h4 style="margin:0">通知消息的标题</h4>,
-    message: '默认4500 ms后自动关闭提示框',
+    title: (h, params) => <h4>通知消息的标题</h4>,
+    message: '默认 4500ms 后自动关闭提示框',
     position: 'top-right'
   })
 }
@@ -21,8 +21,8 @@ function baseClick() {
 function successClick() {
   Notify({
     type: 'success',
-    title: (h, params) => <h4 style="margin:0">通知消息的标题</h4>,
-    message: '500ms后自动关闭提示框',
+    title: (h, params) => <h4>通知消息的标题</h4>,
+    message: '500ms 后自动关闭提示框',
     position: 'top-right',
     duration: 500
   })
@@ -31,8 +31,8 @@ function successClick() {
 function errorClick() {
   Notify({
     type: 'error',
-    title: (h, params) => <h4 style="margin:0">通知消息的标题</h4>,
-    message: '5000ms后自动关闭提示框',
+    title: (h, params) => <h4>通知消息的标题</h4>,
+    message: '5000ms 后自动关闭提示框',
     position: 'top-right',
     duration: 5000
   })

@@ -1,6 +1,6 @@
 import type { ExtractPropTypes } from 'vue'
-import { ISearchProps } from '@/search/src'
-import { ISharedRenderlessFunctionParams, ISharedRenderlessParamUtils } from './shared.type'
+import type { searchProps } from '@/search/src'
+import type { ISharedRenderlessFunctionParams, ISharedRenderlessParamUtils } from './shared.type'
 
 export interface ISearchState {
   show: boolean
@@ -11,9 +11,11 @@ export interface ISearchState {
   searchValue: object
   types: string[]
   showClear: boolean
+  formItemSize: string
+  searchSize: string
 }
 
-export type ISearchProps = ExtractPropTypes<typeof ISearchProps>
+export type ISearchProps = ExtractPropTypes<typeof searchProps>
 
 export type ISearchRenderlessParams = ISharedRenderlessFunctionParams<never> & {
   state: ISearchState

@@ -9,15 +9,18 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  -->
+
 <script lang="tsx">
 import { renderless, api } from '@opentiny/vue-renderless/scrollbar/vue-bar'
+import { setup, $prefix, h } from '@opentiny/vue-common'
 
-import { setup, $prefix, h } from '@opentiny/vue-common' // 此处引入 h 是为了防止打包后 h 被重命名导致组件报错的问题
+// 此处引入 h 是为了防止打包后 h 被重命名导致组件报错的问题
 
 export default {
   name: $prefix + 'Bar',
   props: {
     vertical: Boolean,
+    show: Boolean,
     size: String,
     move: Number
   },
@@ -28,6 +31,7 @@ export default {
     const {
       size,
       move,
+      show,
       renderThumbStyle,
       clickTrackHandler,
       clickThumbHandler,
@@ -35,7 +39,10 @@ export default {
     } = this
 
     return (
-      <div ref="bar" class={['tiny-scrollbar__bar', 'is-' + bar.key]} onMousedown={clickTrackHandler}>
+      <div
+        ref="bar"
+        class={['tiny-scrollbar__bar', 'is-' + bar.key, show ? 'is-show' : '']}
+        onMousedown={clickTrackHandler}>
         <div
           ref="thumb"
           class="tiny-scrollbar__thumb"

@@ -1,7 +1,7 @@
 import type { ExtractPropTypes } from 'vue'
-import { ITabsVm, ITabsProps } from './tabs.type'
-import { ISharedRenderlessFunctionParams, ISharedRenderlessParamUtils } from './shared.type'
-import { tabNavPcProps } from '@/tabs/src/tab-nav'
+import type { ITabsVm, ITabsProps } from './tabs.type'
+import type { ISharedRenderlessFunctionParams, ISharedRenderlessParamUtils } from './shared.type'
+import type { tabNavPcProps } from '@/tabs/src/tab-nav'
 import type {
   computedNavStyle,
   scrollIntoView,
@@ -32,6 +32,11 @@ export type ITabNavProps = { _mode: string } & ExtractPropTypes<typeof tabNavPcP
 
 interface ITabNavStyle {}
 
+interface ITabLineStyle {
+  width: number
+  offset: number
+}
+
 interface ITabNavScrollable {
   prev: number
   next: boolean
@@ -40,7 +45,7 @@ interface ITabNavScrollable {
 export interface ITabNavState {
   dragging: boolean
   navOffset: number
-  lineOffset: number
+  lineStyle: ITabLineStyle
   scrollable: boolean | ITabNavScrollable
   isFocus: boolean
   focusable: boolean
@@ -55,6 +60,7 @@ export interface ITabNavState {
   sizeName: string
   navStyle: ITabNavStyle
   navSortableObj: object
+  separator: boolean | null
 }
 
 export interface ITabNavApi {

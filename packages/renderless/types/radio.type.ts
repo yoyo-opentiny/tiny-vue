@@ -1,6 +1,6 @@
 import type { ExtractPropTypes } from 'vue'
-import { radioProps, $constants } from '@/radio/src'
-import { ISharedRenderlessFunctionParams, ISharedRenderlessParamUtils } from './shared.type'
+import type { radioProps, $constants } from '@/radio/src'
+import type { ISharedRenderlessFunctionParams, ISharedRenderlessParamUtils } from './shared.type'
 import type {
   handleChange,
   isGroup,
@@ -9,9 +9,7 @@ import type {
   isDisplayOnly,
   tabIndex,
   getModel,
-  setModel,
-  dispatchDisplayedValue,
-  getDisplayedValue
+  setModel
 } from '../src/radio'
 
 export type IRadioProps = ExtractPropTypes<typeof radioProps>
@@ -48,8 +46,6 @@ export interface IRadioApi {
   tabIndex: ReturnType<typeof tabIndex>
   getModel: ReturnType<typeof getModel>
   setModel: ReturnType<typeof setModel>
-  dispatchDisplayedValue: ReturnType<typeof dispatchDisplayedValue>
-  getDisplayedValue: ReturnType<typeof getDisplayedValue>
 }
 
 export type IRadioRenderlessParamUtils = ISharedRenderlessParamUtils<IRadioConstants>

@@ -1,8 +1,8 @@
 <template>
-  <tiny-slider v-model="value2" disabled></tiny-slider>
+  <tiny-slider v-model="value" disabled></tiny-slider>
 </template>
 
-<script lang="jsx">
+<script>
 import { Slider } from '@opentiny/vue'
 
 export default {
@@ -11,7 +11,7 @@ export default {
   },
   data() {
     return {
-      value2: 40
+      value: 40
     }
   }
 }

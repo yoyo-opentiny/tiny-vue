@@ -18,7 +18,7 @@ import { isRuleOrGroupValid } from '../isRuleOrGroupValid'
 import { uniqByName } from '../uniq'
 import { defaultRuleProcessorJsonLogic } from './defaultRuleProcessorJsonLogic'
 import { defaultValueProcessorByRule } from './defaultValueProcessorByRule'
-import { celCombinatorMap, isValueProcessorLegacy, numerifyValues, shouldRenderAsNumber } from './utils'
+import { isValueProcessorLegacy, numerifyValues } from './utils'
 
 /**
  * Formats the query in the requested output format.
@@ -71,16 +71,18 @@ function formatQuery(ruleGroup: RuleGroupTypeAny, options: FormatQueryOptions | 
               ? valueProcessor(r.field, r.operator, r.value, r.valueSource)
               : valueProcessor(r, opts)
         : format === 'jsonlogic'
-        ? ruleProcessorInternal ?? defaultRuleProcessorJsonLogic
-        : defaultValueProcessorByRule
+          ? ruleProcessorInternal ?? defaultRuleProcessorJsonLogic
+          : defaultValueProcessorByRule
     if (Array.isArray(options.quoteFieldNamesWith)) {
       quoteFieldNamesWith = options.quoteFieldNamesWith
     } else if (typeof options.quoteFieldNamesWith === 'string') {
+      // eslint-disable-next-line unused-imports/no-unused-vars
       quoteFieldNamesWith = [options.quoteFieldNamesWith, options.quoteFieldNamesWith]
     }
     validator = options.validator ?? (() => true)
     fields = options.fields ?? []
     fallbackExpression = options.fallbackExpression ?? ''
+    // eslint-disable-next-line unused-imports/no-unused-vars
     paramPrefix = options.paramPrefix ?? ':'
     parseNumbers = !!options.parseNumbers
     placeholderFieldName = options.placeholderFieldName ?? defaultPlaceholderFieldName
@@ -120,8 +122,8 @@ function formatQuery(ruleGroup: RuleGroupTypeAny, options: FormatQueryOptions | 
     })
 
     const validateRule = (rule: RuleType) => {
-      let validationResults: boolean | ValidationResult | undefined = undefined
-      let fieldValidator: RuleValidator | undefined = undefined
+      let validationResults: boolean | ValidationResult | undefined
+      let fieldValidator: RuleValidator | undefined
       if (rule.id) {
         validationResults = validationMap[rule.id]
       }

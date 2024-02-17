@@ -1,7 +1,7 @@
 import type { ExtractPropTypes } from 'vue'
-import { BigIntDecimal } from '../src/common/bigInt'
-import { numericProps, $constants } from '@/numeric/src'
-import {
+import type { BigIntDecimal } from '../src/common/bigInt'
+import type { numericProps, $constants } from '@/numeric/src'
+import type {
   focus,
   select,
   getPrecision,
@@ -26,18 +26,22 @@ import {
   dispatchDisplayedValue,
   getDisplayedValue,
   initService,
-  getDisplayOnlyText
+  getDisplayOnlyText,
+  filterValue,
+  handleClear,
+  handleChange
 } from '../src/numeric'
-import { ISharedRenderlessFunctionParams, ISharedRenderlessParamUtils } from './shared.type'
+import type { ISharedRenderlessFunctionParams, ISharedRenderlessParamUtils } from './shared.type'
 
 export type INumericProps = ExtractPropTypes<typeof numericProps>
 
 export type INumericConstants = typeof $constants
 
 export interface INumericState {
-  currentValue: number
-  userInput: number
-  lastInput: number
+  radioVal: string
+  currentValue: number | string
+  userInput: number | string
+  lastInput: number | string
   inputStatus: boolean
   decimal: BigIntDecimal
   strictInput: boolean
@@ -79,6 +83,9 @@ export interface INumericApi {
   dispatchDisplayedValue: ReturnType<typeof dispatchDisplayedValue>
   getDisplayedValue: ReturnType<typeof getDisplayedValue>
   getDisplayOnlyText: ReturnType<typeof getDisplayOnlyText>
+  filterValue: ReturnType<typeof filterValue>
+  handleClear: ReturnType<typeof handleClear>
+  handleChange: ReturnType<typeof handleChange>
 }
 
 export type INumericRenderlessParams = ISharedRenderlessFunctionParams<INumericConstants> & {
@@ -100,7 +107,7 @@ export interface INumericUnitPrecision {
 }
 
 export interface INumericInitStateParams
-  extends Pick<INumericRenderlessParams, 'reactive' | 'computed' | 'props' | 'api' | 'parent'> {
+  extends Pick<INumericRenderlessParams, 'constants' | 'reactive' | 'computed' | 'props' | 'api' | 'parent'> {
   $service: ReturnType<typeof initService>
 }
 

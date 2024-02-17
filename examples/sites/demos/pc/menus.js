@@ -58,7 +58,7 @@ export const cmpMenus = [
       { 'nameCn': '里程碑', 'name': 'Milestone', 'key': 'milestone' },
       { 'nameCn': '导航菜单', 'name': 'NavMenu', 'key': 'nav-menu' },
       { 'nameCn': '步骤条', 'name': 'Steps', 'key': 'steps' },
-      { 'nameCn': '标签页', 'name': 'Tabs', 'key': 'tabs' },
+      { 'nameCn': '页签', 'name': 'Tabs', 'key': 'tabs' },
       { 'nameCn': '时间线', 'name': 'TimeLine', 'key': 'time-line' },
       { 'nameCn': '树型菜单', 'name': 'TreeMenu', 'key': 'tree-menu' },
       { 'nameCn': '流程图', 'name': 'Wizard', 'key': 'wizard' },
@@ -97,13 +97,21 @@ export const cmpMenus = [
       { 'nameCn': '文件上传', 'name': 'FileUpload', 'key': 'file-upload' },
       { 'nameCn': '表单', 'name': 'Form', 'key': 'form' },
       { 'nameCn': '输入框', 'name': 'Input', 'key': 'input' },
-      { 'nameCn': '输入框', 'name': 'IpAddress', 'key': 'ip-address' },
+      { 'nameCn': ' IP地址输入框', 'name': 'IpAddress', 'key': 'ip-address' },
       { 'nameCn': '文字链接', 'name': 'Link', 'key': 'link' },
       { 'nameCn': '计数器', 'name': 'Numeric', 'key': 'numeric' },
       { 'nameCn': '弹出编辑', 'name': 'PopEditor', 'key': 'popeditor' },
       { 'nameCn': '弹出框上传', 'name': 'PopUpload', 'key': 'pop-upload' },
       { 'nameCn': '单选框', 'name': 'Radio', 'key': 'radio' },
-      { 'nameCn': '富文本', 'name': 'RichTextEditor', 'key': 'rich-text-editor' },
+      {
+        'nameCn': '富文本',
+        'name': 'RichTextEditor',
+        'key': 'rich-text-editor',
+        'mark': {
+          'type': 'warning',
+          'text': 'Beta'
+        }
+      },
       { 'nameCn': '搜索', 'name': 'Search', 'key': 'search' },
       { 'nameCn': '选择器', 'name': 'Select', 'key': 'select' },
       { 'nameCn': '滑块', 'name': 'Slider', 'key': 'slider' },
@@ -111,7 +119,8 @@ export const cmpMenus = [
       { 'nameCn': '时间选择器', 'name': 'TimePicker', 'key': 'time-picker' },
       { 'nameCn': '时间选择', 'name': 'TimeSelect', 'key': 'time-select' },
       { 'nameCn': '颜色选择器', 'name': 'ColorPicker', 'key': 'color-picker' },
-      { 'nameCn': '颜色选择面板', 'name': 'ColorSelectPanel', 'key': 'color-select-panel' }
+      { 'nameCn': '颜色选择面板', 'name': 'ColorSelectPanel', 'key': 'color-select-panel' },
+      { 'nameCn': '查询生成器', 'name': 'QueryBuilder ', 'key': 'query-builder' }
     ]
   },
   {
@@ -119,48 +128,43 @@ export const cmpMenus = [
     'labelEn': 'Table Components',
     'key': 'cmp_table_components',
     'children': [
-      { 'nameCn': 'Grid表格基本用法', 'name': 'Basic Usage', 'key': 'grid' },
-      { 'nameCn': '序号列', 'name': 'Ordinal column', 'key': 'grid-serial-column' },
-      { 'nameCn': '操作列', 'name': 'Operation column', 'key': 'grid-operation-column' },
-      { 'nameCn': '空数据', 'name': 'Empty data', 'key': 'grid-empty-data-tip' },
-      { 'nameCn': '数据源', 'name': 'Data source', 'key': 'grid-data-source' },
-      { 'nameCn': '大数据', 'name': 'Big data', 'key': 'grid-large-data' },
-      { 'nameCn': '分页', 'name': 'Pagination', 'key': 'grid-pager' },
-      { 'nameCn': '编辑', 'name': 'Editing', 'key': 'grid-edit' },
-      { 'nameCn': '工具栏', 'name': 'Toolbar', 'key': 'grid-toolbar' },
-      { 'nameCn': '加载中', 'name': 'Loading', 'key': 'grid-grid-loading-tip' },
-      { 'nameCn': '尺寸', 'name': 'Size', 'key': 'grid-grid-size' },
-      { 'nameCn': '宽高', 'name': 'Width and height', 'key': 'grid-width-height' },
-      { 'nameCn': '边框', 'name': 'Borders', 'key': 'grid-grid-border' },
-      { 'nameCn': '高亮', 'name': 'Highlighting', 'key': 'grid-highlight' },
-      { 'nameCn': '斑马线条纹', 'name': 'Zebra Crossing Stripes', 'key': 'grid-grid-stripe' },
-      { 'nameCn': '提示', 'name': 'Tip', 'key': 'grid-tip' },
-      { 'nameCn': '对齐方式', 'name': 'Alignment', 'key': 'grid-align' },
-      { 'nameCn': '表头', 'name': 'Table Header', 'key': 'grid-header' },
-      { 'nameCn': '表尾', 'name': 'End of table', 'key': 'grid-footer' },
-      { 'nameCn': '自定义样式', 'name': 'Custom Styles', 'key': 'grid-custom-style' },
-      { 'nameCn': '排序', 'name': 'Sorting', 'key': 'grid-sort' },
-      { 'nameCn': '筛选', 'name': 'Filtering', 'key': 'grid-filter' },
-      { 'nameCn': '冻结', 'name': 'Freeze', 'key': 'grid-fixed' },
-      { 'nameCn': '合并', 'name': 'Merges', 'key': 'grid-span' },
-      { 'nameCn': '分组', 'name': 'Grouping', 'key': 'grid-row-grouping' },
-      { 'nameCn': '统计', 'name': 'Statistic', 'key': 'grid-summary' },
-      { 'nameCn': '拖拽', 'name': 'Drag and drop', 'key': 'grid-drag' },
-      { 'nameCn': '数据级联', 'name': 'Data Cascading', 'key': 'grid-cascade' },
-      { 'nameCn': '右键菜单', 'name': 'Right-click menu', 'key': 'grid-context-menu' },
-      { 'nameCn': '编辑器', 'name': 'Editors', 'key': 'grid-editor' },
-      { 'nameCn': '渲染器', 'name': 'Renderer', 'key': 'grid-renderer' },
-      { 'nameCn': '表格校验', 'name': 'Check the table', 'key': 'grid-validation' },
-      { 'nameCn': '事件', 'name': 'Events', 'key': 'grid-event' },
-      { 'nameCn': '插槽', 'name': 'Slots', 'key': 'grid-slot' },
-      { 'nameCn': '个性化', 'name': 'Personalized', 'key': 'grid-customized' },
-      { 'nameCn': '树表', 'name': 'Tree table', 'key': 'grid-tree-grid' },
-      { 'nameCn': '嵌套表格', 'name': 'Nested Tables', 'key': 'grid-nested-grid' },
-      { 'nameCn': '导入导出', 'name': 'Import and export', 'key': 'grid-import-export' },
-      { 'nameCn': '鼠标和键盘配置', 'name': 'Mouse and Keyboard Configuration', 'key': 'grid-keyboard' },
-      { 'nameCn': '表格行列反转', 'name': 'Table row and column reversal', 'key': 'grid-reverse-column-row' },
-      { 'nameCn': '动态生成列', 'name': 'Dynamically Generate Columns', 'key': 'grid-dynamically-columns' },
-      { 'nameCn': '常见问题', 'name': 'Frequently Asked Questions', 'key': 'grid-faq' }
+      { 'nameCn': '基本用法', 'name': '', 'key': 'grid' },
+      { 'nameCn': '序号列', 'name': '', 'key': 'grid-serial-column' },
+      { 'nameCn': '操作列', 'name': '', 'key': 'grid-operation-column' },
+      { 'nameCn': '空数据', 'name': '', 'key': 'grid-empty' },
+      { 'nameCn': '数据源', 'name': '', 'key': 'grid-data-source' },
+      { 'nameCn': '大数据', 'name': '', 'key': 'grid-large-data' },
+      { 'nameCn': '分页', 'name': '', 'key': 'grid-pager' },
+      { 'nameCn': '编辑', 'name': '', 'key': 'grid-edit' },
+      { 'nameCn': '工具栏', 'name': '', 'key': 'grid-toolbar' },
+      { 'nameCn': '加载中', 'name': '', 'key': 'grid-loading' },
+      { 'nameCn': '宽高尺寸', 'name': '', 'key': 'grid-size' },
+      { 'nameCn': '外观设置', 'name': '', 'key': 'grid-appearance-settings' },
+      { 'nameCn': '高亮', 'name': '', 'key': 'grid-highlight' },
+      { 'nameCn': '提示', 'name': '', 'key': 'grid-tip' },
+      { 'nameCn': '对齐方式', 'name': '', 'key': 'grid-align' },
+      { 'nameCn': '表头', 'name': '', 'key': 'grid-header' },
+      { 'nameCn': '表尾', 'name': '', 'key': 'grid-footer' },
+      { 'nameCn': '自定义样式', 'name': '', 'key': 'grid-custom-style' },
+      { 'nameCn': '排序', 'name': '', 'key': 'grid-sort' },
+      { 'nameCn': '筛选', 'name': '', 'key': 'grid-filter' },
+      { 'nameCn': '冻结', 'name': '', 'key': 'grid-fixed' },
+      { 'nameCn': '合并', 'name': '', 'key': 'grid-span' },
+      { 'nameCn': '分组', 'name': '', 'key': 'grid-row-grouping' },
+      { 'nameCn': '拖拽', 'name': '', 'key': 'grid-drag' },
+      { 'nameCn': '右键菜单', 'name': '', 'key': 'grid-context-menu' },
+      { 'nameCn': '编辑器', 'name': '', 'key': 'grid-editor' },
+      { 'nameCn': '渲染器', 'name': '', 'key': 'grid-renderer' },
+      { 'nameCn': '表格校验', 'name': '', 'key': 'grid-validation' },
+      { 'nameCn': '事件', 'name': '', 'key': 'grid-event' },
+      { 'nameCn': '插槽', 'name': '', 'key': 'grid-slot' },
+      { 'nameCn': '个性化', 'name': '', 'key': 'grid-custom' },
+      { 'nameCn': '树表', 'name': '', 'key': 'grid-tree-table' },
+      { 'nameCn': '展开行', 'name': '', 'key': 'grid-expand' },
+      { 'nameCn': '导入导出', 'name': '', 'key': 'grid-import-export' },
+      { 'nameCn': '鼠标和键盘配置', 'name': '', 'key': 'grid-mouse-keyboard' },
+      { 'nameCn': '动态列及行列反转', 'name': '', 'key': 'grid-dynamically-columns' },
+      { 'nameCn': '常见问题', 'name': '', 'key': 'grid-faq' }
     ]
   },
   {
@@ -205,7 +209,8 @@ export const cmpMenus = [
       { 'nameCn': '进度条', 'name': 'Progress', 'key': 'progress' },
       { 'nameCn': '树形控件', 'name': 'Tree', 'key': 'tree' },
       { 'nameCn': '穿梭框', 'name': 'Transfer', 'key': 'transfer' },
-      { 'nameCn': '无限滚动', 'name': 'InfiniteScroll', 'key': 'infinite-scroll' }
+      { 'nameCn': '无限滚动', 'name': 'InfiniteScroll', 'key': 'infinite-scroll' },
+      { 'nameCn': '骨架屏', 'name': 'Skeleton', 'key': 'skeleton' }
     ]
   },
   {
@@ -231,13 +236,37 @@ export const cmpMenus = [
       { 'nameCn': '公告牌', 'name': 'BulletinBoard', 'key': 'bulletin-board' },
       { 'nameCn': '日历', 'name': 'Calendar', 'key': 'calendar' },
       { 'nameCn': '日历视图', 'name': 'CalendarView', 'key': 'calendar-view' },
-      { 'nameCn': '信用卡表单', 'name': 'CreditCardForm', 'key': 'credit-card-form' },
+      {
+        'nameCn': '信用卡表单',
+        'name': 'CreditCardForm',
+        'key': 'credit-card-form',
+        'mark': {
+          'type': 'danger',
+          'text': 'Del'
+        }
+      },
       { 'nameCn': '图片裁剪', 'name': 'Crop', 'key': 'crop' },
-      { 'nameCn': '表头详情栏', 'name': 'DetailPage', 'key': 'detail-page' },
+      {
+        'nameCn': '表头详情栏',
+        'name': 'DetailPage',
+        'key': 'detail-page',
+        'mark': {
+          'type': 'danger',
+          'text': 'Del'
+        }
+      },
       { 'nameCn': '图片预览', 'name': 'Image', 'key': 'image' },
       { 'nameCn': '评分', 'name': 'Rate', 'key': 'rate' },
       { 'nameCn': '文字滚动', 'name': 'ScrollText', 'key': 'scroll-text' },
-      { 'nameCn': '滚动块', 'name': 'SlideBar', 'key': 'slide-bar' },
+      {
+        'nameCn': '滚动块',
+        'name': 'SlideBar',
+        'key': 'slide-bar',
+        'mark': {
+          'type': 'danger',
+          'text': 'Del'
+        }
+      },
       { 'nameCn': '标签', 'name': 'Tag', 'key': 'tag' },
       { 'nameCn': '标签组', 'name': 'TagGroup', 'key': 'tag-group' },
       { 'nameCn': '输入框', 'name': 'TextPopup', 'key': 'text-popup' },
@@ -246,12 +275,35 @@ export const cmpMenus = [
       { 'nameCn': '全屏显示', 'name': 'Fullscreen', 'key': 'fullscreen' },
       { 'nameCn': '全局设置', 'name': 'ConfigProvider', 'key': 'config-provider' },
       { 'nameCn': '分割线', 'name': 'Divider', 'key': 'divider' },
-      { 'nameCn': '二维码', 'name': 'QrCode', 'key': 'qr-code' }
+      {
+        'nameCn': '二维码',
+        'name': 'QrCode',
+        'key': 'qr-code',
+        'mark': {
+          'text': 'New'
+        }
+      },
+      {
+        'nameCn': '水印',
+        'name': 'Watermark',
+        'key': 'watermark',
+        'mark': {
+          'text': 'New'
+        }
+      },
+      {
+        'nameCn': '脑图',
+        'name': 'mind-map',
+        'key': 'mind-map'
+      }
     ]
   }
 ]
+
+const showBusiness = location.pathname.split('/')?.[2] === 'all'
+
 // 对内文档开放业务组件
-if (!isOpen) {
+if (!isOpen || showBusiness) {
   cmpMenus.splice(8, 0, {
     'label': '业务组件',
     'labelEn': 'Business Components',

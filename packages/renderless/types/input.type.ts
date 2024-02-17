@@ -1,6 +1,6 @@
 import type { ExtractPropTypes, ComputedRef } from 'vue'
-import { inputProps, $constants } from '@/input/src'
-import { ISharedRenderlessFunctionParams, ISharedRenderlessParamUtils } from './shared.type'
+import type { inputProps, $constants } from '@/input/src'
+import type { ISharedRenderlessFunctionParams, ISharedRenderlessParamUtils } from './shared.type'
 import type useStorageBox from '../src/tall-storage/vue-storage-box'
 import type {
   calculateNodeStyling,
@@ -10,12 +10,11 @@ import type {
   calcIconOffset,
   focus,
   watchFormSelect,
-  getDisplayedValue,
   setNativeInputValue,
   resizeTextarea,
   updateIconOffset,
   hiddenPassword,
-  dispatchDisplayedValue
+  inputStyle
 } from '../src/input'
 
 export interface IInputState {
@@ -26,7 +25,8 @@ export interface IInputState {
   passwordVisible: boolean
   boxVisibility: boolean
   textareaCalcStyle: object
-  checkedLable: string
+  checkedLabel: string
+  width: string
   sheetvalue: string | number | undefined
   inputSize: ComputedRef<string>
   showClear: ComputedRef<boolean>
@@ -61,7 +61,6 @@ export interface IInputApi extends Pick<IInputRenderlessParamUtils, 'dispatch'> 
   setNativeInputValue: ReturnType<typeof setNativeInputValue>
   resizeTextarea: ReturnType<typeof resizeTextarea>
   updateIconOffset: ReturnType<typeof updateIconOffset>
-  dispatchDisplayedValue: ReturnType<typeof dispatchDisplayedValue>
   hiddenPassword: ReturnType<typeof hiddenPassword>
   watchFormSelect: ReturnType<typeof watchFormSelect>
   getInput: ReturnType<typeof getInput>
@@ -70,7 +69,7 @@ export interface IInputApi extends Pick<IInputRenderlessParamUtils, 'dispatch'> 
   handleInput: ReturnType<typeof handleInput>
   calcIconOffset: ReturnType<typeof calcIconOffset>
   focus: ReturnType<typeof focus>
-  getDisplayedValue: ReturnType<typeof getDisplayedValue>
+  inputStyle: ReturnType<typeof inputStyle>
 }
 
 export type IInputRenderlessParams = ISharedRenderlessFunctionParams<IInputConstants> & {

@@ -1,5 +1,7 @@
+import type { IPopconfirmRenderlessParams } from '@/types'
+
 export const hide =
-  ({ state, emit }) =>
+  ({ state, emit }: Pick<IPopconfirmRenderlessParams, 'state' | 'emit'>) =>
   () => {
     state.isLock = true
     setTimeout(() => {
@@ -7,30 +9,27 @@ export const hide =
     }, 300)
 
     state.showPopover = false
-    emit('hide', state)
   }
 
 export const show =
-  ({ state, props, emit }) =>
+  ({ state, props, emit }: Pick<IPopconfirmRenderlessParams, 'state' | 'props' | 'emit'>) =>
   (trigger) => {
     if ((trigger ? props.trigger !== trigger : !props.reference) || state.isLock || state.showPopover) {
       return
     }
 
     state.showPopover = true
-    emit('show', state)
   }
 
 export const confirm =
-  ({ state, emit }) =>
+  ({ state, api }: Pick<IPopconfirmRenderlessParams, 'state' | 'api'>) =>
   () => {
     state.showPopover = false
-    emit('confirm', state)
-    emit('hide', state)
+    api.handleEmit('confirm')
   }
 
 export const handleEmit =
-  ({ state, emit, vm }) =>
+  ({ state, emit, vm }: Pick<IPopconfirmRenderlessParams, 'state' | 'emit' | 'vm'>) =>
   (type) => {
     let { events = {} } = vm
 

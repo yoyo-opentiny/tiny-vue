@@ -1,9 +1,10 @@
 <template>
-  <div 
-    :class="[{
-      'tiny-color-picker__trigger': true
+  <div
+    :class="[
+      {
+        'tiny-color-picker': true
       },
-      state.size ? 'tiny-color-picker--' + state.size : '',
+      state.size ? 'tiny-color-picker--' + state.size : ''
     ]"
     @click="() => changeVisible(!state.isShow)"
   >
@@ -21,11 +22,12 @@
         @cancel="onCancel"
         @hue-update="onHueUpdate"
         @sv-update="onSVUpdate"
+        @color-update="onColorUpdate"
         v-model="state.hex"
         :visible="state.isShow"
         :alpha="alpha"
-        :predefine="state.predefineStack.length > 0 ? state.predefineStack : undefined"
-        :history="state.stack.length > 0 ? state.stack : undefined"
+        :predefine="state.predefineStack"
+        :history="state.stack"
       />
     </Transition>
   </div>
@@ -47,6 +49,6 @@ export default defineComponent({
   },
   setup(props, context) {
     return setup({ props, context, renderless, api })
-  },
+  }
 })
 </script>

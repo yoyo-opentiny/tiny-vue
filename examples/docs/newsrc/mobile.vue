@@ -1,6 +1,6 @@
 <template>
   <div class="wp100 hp100 f-r of-hidden">
-    <div class="w230 pt20 of-auto">
+    <div class="w230 pt20 of-auto sm-hidden b-r bg-white" :class="{ 'fixed-menu': showFixedMenu }">
       <tiny-tree-menu
         class="!w213"
         :data="menuData"
@@ -66,7 +66,7 @@
                     <span v-else>{{ row.name }}</span>
                   </td>
                   <td>{{ row.type }}</td>
-                  <td>{{ row.defaultValue }}</td>
+                  <td v-html="typeof row.defaultValue === 'string' ? row.defaultValue || '--' : row.defaultValue"></td>
                   <td v-html="row.desc['zh-CN']"></td>
                 </tr>
               </tbody>
@@ -104,6 +104,9 @@ import { menuData, apis, demoStr, demoVue, mds } from './resourceMobile.js'
 import { useModeCtx } from './uses'
 
 export default {
+  props: {
+    showFixedMenu: Boolean
+  },
   components: {
     TinyFloatbar: Floatbar,
     TinyTreeMenu: TreeMenu,

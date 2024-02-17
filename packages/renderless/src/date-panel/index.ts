@@ -42,11 +42,11 @@ export const getYearLabel =
 
     if (state.currentView === Year) {
       const startYear = state.startYear
-  
+
       if (yearTranslation) {
         return startYear + ' ' + yearTranslation + ' - ' + (startYear + PanelYearNum - 1) + ' ' + yearTranslation
       }
-  
+
       return startYear + ' - ' + (startYear + PanelYearNum - 1)
     }
 
@@ -286,12 +286,32 @@ export const handleYearPick =
       api.cusEmit(state.date)
     } else if ([DATEPICKER.Years].includes(state.selectionMode)) {
       state.date = value.map((year) => new Date(year, 0, 2))
-  
+
       api.cusEmit(state.date, state.selectionMode === DATEPICKER.YearRange ? value.length < 2 : true)
     } else {
       state.date = changeYearMonthAndClampDate(state.date, value, state.month)
       state.currentView = DATEPICKER.Month
     }
+  }
+
+export const getDisabledNow =
+  ({ state }) =>
+  () => {
+    let disabledDate = state.disabledDate
+    if (!disabledDate) return false
+
+    return disabledDate(new Date())
+  }
+
+export const getDisabledConfirm =
+  ({ state }) =>
+  () => {
+    let disabledDate = state.disabledDate
+
+    if (!disabledDate) return false
+    if (!state.value) return true
+
+    return disabledDate(state.value)
   }
 
 const dateToLocaleStringForIE = (timezone, value) => {

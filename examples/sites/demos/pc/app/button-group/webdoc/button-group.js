@@ -3,257 +3,174 @@ export default {
   owner: '',
   demos: [
     {
-      'demoId': 'base',
-      'name': { 'zh-CN': '基本用法', 'en-US': 'Basic Usage' },
-      'desc': {
+      demoId: 'basic-usage',
+      name: {
+        'zh-CN': '基本用法',
+        'en-US': 'Basic Usage'
+      },
+      desc: {
+        'zh-CN': '<p>通过 <code>data</code> 设置按钮组数据，<code>v-model</code> 设置绑定值。</p>',
+        'en-US':
+          '<p>Set the button group data through <code>data</code> , and set the binding value through <code>v model</code> .</p>'
+      },
+      codeFiles: ['basic-usage.vue']
+    },
+    {
+      demoId: 'size',
+      name: {
+        'zh-CN': '组件尺寸大小',
+        'en-US': 'Set Component Size'
+      },
+      desc: {
         'zh-CN':
-          '<p>通过 <code>v-model</code> 设置默认选中的按钮，并实现双向绑定。通过 <code>value</code> 也可设置默认选中按钮，但不能进行双向绑定。</p>\n',
+          '<p>通过 <code>size</code> 设置尺寸大小，可选值有 <code>medium</code> 、<code>small</code> 、<code>mini</code> 。</p>',
         'en-US':
-          '<p>Use <code>v-model</code> to set the default selected button and implement bidirectional binding. You can also set the default selected button through <code>value</code>, but bidirectional binding cannot be performed. </p>\n'
+          '<p>Set the size through <code>size</code> . The optional values are: <code>medium</code> , <code>small</code> , <code>mini</code> .</p>'
       },
-      'codeFiles': ['base.vue']
+      codeFiles: ['size.vue']
     },
     {
-      'demoId': 'data',
-      'name': { 'zh-CN': '按钮组数据', 'en-US': 'button group data' },
-      'desc': {
+      demoId: 'disabled',
+      name: {
+        'zh-CN': '禁用状态',
+        'en-US': 'Disabled'
+      },
+      desc: {
         'zh-CN':
-          '<p>通过 <code>data</code> 属性设置按钮组数据，对象中的 text 为按钮显示文本，value 用于双向绑定时指定的值。</p>\n',
+          '<p>通过 <code>disabled</code> 设置按钮组是否禁用，数据项设置 <code>disabled</code> 属性可以禁用单个按钮。</p>',
         'en-US':
-          '<p>Sets the button group data through the <code>data</code> attribute. In the object, text is the button display text, and value is the value specified during bidirectional binding. </p>\n'
+          '<p>By setting whether the button group is disabled through <code>disabled</code> , and setting the <code>disabled</code> property of the data item, individual buttons can be disabled.</p>'
       },
-      'codeFiles': ['data.vue']
+      codeFiles: ['disabled.vue']
     },
     {
-      'demoId': 'size',
-      'name': { 'zh-CN': '设置组件大小', 'en-US': 'Set Component Size' },
-      'desc': {
-        'zh-CN': '<p>可以设置为：<code>medium</code>，<code>small</code>，<code>mini</code>。</p>\n',
-        'en-US': '<p> can be set to <code>medium</code>, <code>small</code>, <code>mini</code></p>\n'
+      demoId: 'plain',
+      name: {
+        'zh-CN': '朴素按钮',
+        'en-US': 'Simple button'
       },
-      'codeFiles': ['size.vue']
+      desc: {
+        'zh-CN': '<p>通过 <code>plain</code> 设置是否为朴素按钮。</p>',
+        'en-US': '<p>Set whether it is a plain button through <code>plain</code> .</p>'
+      },
+      codeFiles: ['plain.vue']
     },
     {
-      'demoId': 'disabled',
-      'name': { 'zh-CN': '禁用状态', 'en-US': 'Disabled' },
-      'desc': {
+      demoId: 'text-value-field',
+      name: {
+        'zh-CN': '数据字段映射',
+        'en-US': 'Data Field Mapping'
+      },
+      desc: {
         'zh-CN':
-          '<p>设置 <code>disabled</code> 属性为 true 可禁用整个按钮组，数据项属性设置 <code>disabled</code> 可以禁用单个按钮。</p>\n',
-        'en-US': '<p>Set <code>disabled</code> to true to disable the entire button group. </p>\n'
+          '<p>若按钮组数据对象中的字段不是默认的 <code>text</code> 和 <code>value</code> ，则可通过 <code>text-field</code> 、<code>value-field</code> 属性进行映射。</p>',
+        'en-US':
+          '<p>If the fields in the button group data object are not the default text and value, the <code>text-field</code> and <code>value-field</code> attributes can be used for mapping. </p>'
       },
-      'codeFiles': ['disabled.vue']
+      codeFiles: ['text-value-field.vue']
     },
     {
-      'demoId': 'plain',
-      'name': { 'zh-CN': '朴素按钮', 'en-US': 'Simple button' },
-      'desc': {
-        'zh-CN': '<p>设置 <code>plain</code> 属性为 true 可显示为朴素按钮样式。</p>\n',
-        'en-US': '<p>Set <code>plain</code> to true to display the simple button style. </p>\n'
+      demoId: 'show-more',
+      name: {
+        'zh-CN': '显示更多按钮',
+        'en-US': 'Display More Buttons'
       },
-      'codeFiles': ['plain.vue']
+      desc: {
+        'zh-CN': '<p>通过 <code>show-more</code> 设置显示更多按钮，当按钮数量大于设置值时，将显示更多按钮。</p>',
+        'en-US':
+          '<p>By setting <code>show more</code> to display more buttons, when the number of buttons exceeds the set value, more buttons will be displayed. </p>'
+      },
+      codeFiles: ['show-more.vue']
     },
     {
-      'demoId': 'text-value-field',
-      'name': { 'zh-CN': '数据字段映射', 'en-US': 'Data Field Mapping' },
-      'desc': {
+      demoId: 'show-edit',
+      name: {
+        'zh-CN': '编辑按钮',
+        'en-US': 'Display Edit Button'
+      },
+      desc: {
         'zh-CN':
-          '<p>若按钮组数据对象中的字段不是默认的 text 和 value ，则可通过 <code>text-field</code>、<code>value-field</code> 属性进行映射。</p>\n',
+          '<p>设置了显示更多按钮后，可以通过 <code>show-edit</code> 设置是否显示编辑按钮。点击编辑按钮后触发 <code>edit</code> 事件。</p>',
         'en-US':
-          '<p>If the fields in the button group data object are not the default text and value, the <code>text-field</code> and <code>value-field</code> attributes can be used for mapping. </p>\n'
+          '<p>After setting up to display more buttons, You can set whether to display the edit button through <code>show edit</code> . After clicking the edit button, the <code>edit</code> event is triggered.</p>'
       },
-      'codeFiles': ['text-value-field.vue']
+      codeFiles: ['show-edit.vue']
     },
     {
-      'demoId': 'show-more',
-      'name': { 'zh-CN': '是否显示更多按钮', 'en-US': 'Display More Buttons' },
-      'desc': {
-        'zh-CN': '<p>设置 <code>show-more</code> 属性值大于 0 且小于按钮组数据，可显示更多按钮。</p>\n',
-        'en-US':
-          '<p>Set the <code>show-more</code> attribute to a value greater than 0 and less than the button group data to display more buttons. </p>\n'
+      demoId: 'slot-default',
+      name: {
+        'zh-CN': '默认插槽',
+        'en-US': 'Default slot'
       },
-      'codeFiles': ['show-more.vue']
-    },
-    {
-      'demoId': 'show-edit',
-      'name': { 'zh-CN': '是否显示编辑按钮', 'en-US': 'Display Edit Button' },
-      'desc': {
-        'zh-CN': '<p>设置 <code>show-edit</code> 属性值为 true ，可显示编辑按钮。</p>\n',
-        'en-US': '<p>Set <code>show-edit</code> to true to display the edit button. </p>\n'
-      },
-      'codeFiles': ['show-edit.vue']
-    },
-    {
-      'demoId': 'change-event',
-      'name': { 'zh-CN': 'change事件', 'en-US': 'Change Event' },
-      'desc': {
-        'zh-CN': '<p>当选中按钮发生改变时将触发 <code>change</code> 事件。</p>\n',
-        'en-US': '<p>The <code>change</code> event is triggered when the selected button is changed. </p>\n'
-      },
-      'codeFiles': ['change-event.vue']
-    },
-    {
-      'demoId': 'event-edit',
-      'name': { 'zh-CN': '编辑事件', 'en-US': 'Edit Event' },
-      'desc': {
-        'zh-CN': '<p>勾选值改变后将触发 <code>edit</code> 事件。</p>\n',
-        'en-US': '<p>The <code>edit</code> event is triggered when the edit button is clicked. </p>\n'
-      },
-      'codeFiles': ['event-edit.vue']
-    },
-    {
-      'demoId': 'slot-default',
-      'name': { 'zh-CN': '默认插槽', 'en-US': 'Default slot' },
-      'desc': {
+      desc: {
         'zh-CN':
-          '<p>使用默认插槽的方式时，ButtonGroup 的 <code>data、text-field、value-field、value / v-model、size</code> 属性对插槽中的按钮将不再生效。\n但可根据使用场景在 Button 组件标签上对不同按钮设置不同的属性，具体参考 Button 组件属性。</p>\n',
+          '<p>使用默认插槽自定义按钮组，使用默认插槽后， <code>button-group</code> 的 <code>data</code> 、<code>text-field</code> 、<code>value-field</code> 、<code>value / v-model</code> 、<code>size</code> 属性对插槽中的按钮将不再生效。</p>',
         'en-US':
-          '<p>When the default slot mode is used, the <code>data, text-field, value-field, value / v-model, and size</code> attributes of the ButtonGroup do not take effect for buttons in the slot. \n However, you can set different attributes for different buttons on the Button component tag based on the application scenario. For details, see Button Component Attributes. </p>\n'
+          '<p>When the default slot mode is used, the <code>data, text-field, value-field, v-model, and size</code> attributes of the ButtonGroup do not take effect for buttons in the slot. </p>'
       },
-      'codeFiles': ['slot-default.vue']
+      codeFiles: ['slot-default.vue']
     },
     {
-      'demoId': 'button-group-multiple',
-      'name': { 'zh-CN': '多行', 'en-US': 'Button Group Multiple' },
-      'desc': {
-        'zh-CN': '<p>多行按钮组，超出最大宽度后，换行显示。</p>\n',
+      demoId: 'slot-empty',
+      name: {
+        'zh-CN': '空数据插槽',
+        'en-US': 'Empty slot'
+      },
+      desc: {
+        'zh-CN': '<p>当数据为空时，默认会显示暂无数据，通过默认插槽自定义内容。</p>',
+        'en-US': '<p>When the data is empty, customize the content via the <code>empty</code> slot.</p>'
+      },
+      codeFiles: ['slot-empty.vue']
+    },
+    {
+      demoId: 'button-group-multiple',
+      name: {
+        'zh-CN': '多行按钮组',
+        'en-US': 'Button Group Multiple'
+      },
+      desc: {
+        'zh-CN': '<p>多行按钮组，当超出最大宽度后，换行显示。</p>',
         'en-US':
-          '<p>Multi-line button group, after exceeding the maximum width, it will be displayed in a new line.</p>\n'
+          '<p>Multi-line button group, after exceeding the maximum width, it will be displayed in a new line.</p>'
       },
-      'codeFiles': ['button-group-multiple.vue']
+      codeFiles: ['button-group-multiple.vue']
     },
     {
-      'demoId': 'border',
-      'name': { 'zh-CN': '边框', 'en-US': 'Border' },
-      'desc': {
-        'zh-CN': '<p>设置有无边框，默认为true。</p>\n',
-        'en-US': '<p>Set with or without border, the default is true.</p>\n'
+      demoId: 'border',
+      name: {
+        'zh-CN': '边框',
+        'en-US': 'Border'
       },
-      'codeFiles': ['border.vue']
+      desc: {
+        'zh-CN': '<p>通过 <code>border</code> 设置有无边框。</p>',
+        'en-US': '<p>Set whether there is a border through <code>border</code> .</p>'
+      },
+      codeFiles: ['border.vue']
     },
     {
-      'demoId': 'sup',
-      'name': { 'zh-CN': '选块角标', 'en-US': '' },
-      'desc': { 'zh-CN': '<p>通过配置项 <code>sup</code> 配置选块角标。</p>\n', 'en-US': '' },
-      'codeFiles': ['sup.vue']
-    }
-  ],
-  apis: [
+      demoId: 'sup',
+      name: {
+        'zh-CN': '选块角标',
+        'en-US': ''
+      },
+      desc: {
+        'zh-CN':
+          '<p>通过 <code>data</code> 的 <code>sup</code> 属性配置选块角标，详见 <a href="IButtonGroupData">IButtonGroupData</a> 。</p>',
+        'en-US': ''
+      },
+      codeFiles: ['sup.vue']
+    },
     {
-      'name': 'button-group',
-      'type': 'component',
-      'properties': [
-        {
-          'name': 'disabled',
-          'type': 'boolean',
-          'defaultValue': '该属性的默认值为 false',
-          'desc': { 'zh-CN': '设置按钮组是否被禁用。', 'en-US': 'Sets whether the button group is disabled.' },
-          'demoId': 'disabled'
-        },
-        {
-          'name': 'size',
-          'type': 'string',
-          'defaultValue': '',
-          'desc': { 'zh-CN': '设置组件大小', 'en-US': 'Set the component size' },
-          'demoId': 'size'
-        },
-        {
-          'name': 'data',
-          'type': 'Array',
-          'defaultValue': '',
-          'desc': {
-            'zh-CN': "按钮组数据。例：[{text: '', value: ''}]。",
-            'en-US': "button group data. Example: [{text: '', value: ''}]"
-          },
-          'demoId': 'data'
-        },
-        {
-          'name': 'value-field',
-          'type': 'string',
-          'defaultValue': '该属性的默认值为 value',
-          'desc': { 'zh-CN': '按钮值的字段值。', 'en-US': 'Field value of the button value.' },
-          'demoId': 'text-value-field'
-        },
-        {
-          'name': 'text-field',
-          'type': 'string',
-          'defaultValue': '该属性的默认值为 text',
-          'desc': { 'zh-CN': '按钮显示文字的字段值。', 'en-US': 'Field value of the button displayed text.' },
-          'demoId': 'text-value-field'
-        },
-        {
-          'name': 'modelValue / v-model',
-          'type': 'number , string',
-          'defaultValue': '',
-          'desc': { 'zh-CN': '默认选中按钮的值。', 'en-US': 'Default value of the selected button.' },
-          'demoId': 'base'
-        },
-        {
-          'name': 'plain',
-          'type': 'boolean',
-          'defaultValue': '该属性的默认值为 false',
-          'desc': { 'zh-CN': '是否朴素按钮。', 'en-US': 'Indicates whether the button is a simple button.' },
-          'demoId': 'plain'
-        },
-        {
-          'name': 'show-more',
-          'type': 'number',
-          'defaultValue': '',
-          'desc': {
-            'zh-CN': '设置超过多少个显示更多按钮。',
-            'en-US': 'Set the number of more buttons to be displayed.'
-          },
-          'demoId': 'show-more'
-        },
-        {
-          'name': 'show-edit',
-          'type': 'boolean',
-          'defaultValue': '该属性的默认值为 false',
-          'desc': {
-            'zh-CN': '是否显示编辑按钮，只有在显示更多的情况下生效。',
-            'en-US':
-              'Whether to display the edit button. This parameter takes effect only when more buttons are displayed.'
-          },
-          'demoId': 'show-edit'
-        },
-        {
-          'name': 'border',
-          'type': 'boolean',
-          'defaultValue': '该属性的默认值为 true',
-          'desc': { 'zh-CN': '是否显示边框线。', 'en-US': 'Remove button border.' },
-          'demoId': 'border'
-        }
-      ],
-      'events': [
-        {
-          'name': 'edit',
-          'type': '',
-          'defaultValue': '',
-          'desc': {
-            'zh-CN': '设置当编辑按钮被点击时触发的回调函数。',
-            'en-US': 'Set the callback function triggered when the edit button is clicked.'
-          },
-          'demoId': 'event-edit'
-        },
-        {
-          'name': 'change',
-          'type': '',
-          'defaultValue': '',
-          'desc': {
-            'zh-CN': '当选中按钮发生改变时触发的回调函数。',
-            'en-US': 'Set the callback function triggered when the selected button is changed.'
-          },
-          'demoId': 'change-event'
-        }
-      ],
-      'slots': [
-        {
-          'name': 'default',
-          'type': '',
-          'defaultValue': '',
-          'desc': { 'zh-CN': '按钮组内容。', 'en-US': 'button group content.' },
-          'demoId': 'slot-default'
-        }
-      ]
+      demoId: 'change-event',
+      name: {
+        'zh-CN': '事件',
+        'en-US': 'Change Event'
+      },
+      desc: {
+        'zh-CN': '<p>当选中按钮发生改变时触发 <code>change</code> 事件。</p>',
+        'en-US': '<p>The <code>change</code> event is triggered when the selected button is changed. </p>'
+      },
+      codeFiles: ['change-event.vue']
     }
   ]
 }

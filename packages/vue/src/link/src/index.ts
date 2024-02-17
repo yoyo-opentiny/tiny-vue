@@ -12,19 +12,21 @@
 import { $prefix, $props, $setup, defineComponent } from '@opentiny/vue-common'
 import template from 'virtual-template?pc'
 
-export  const linkProps = {
+export const linkProps = {
   ...$props,
   type: {
     type: String,
     default: 'default'
   },
+  value: String,
   underline: {
     type: Boolean,
     default: true
   },
   href: String,
   icon: [Object, String],
-  disabled: Boolean
+  disabled: Boolean,
+  size: String
 }
 
 export default defineComponent({

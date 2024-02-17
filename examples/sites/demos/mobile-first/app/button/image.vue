@@ -1,5 +1,5 @@
 <template>
-  <tiny-button>
+  <tiny-button size="medium">
     <img :src="image" width="26" />
     <span>图片按钮</span>
   </tiny-button>
@@ -14,7 +14,7 @@ export default {
   },
   data() {
     return {
-      image: '/static/images/hae-logo.png'
+      image: `${import.meta.env.VITE_APP_BUILD_BASE_URL}static/images/hae-logo.png`
     }
   }
 }

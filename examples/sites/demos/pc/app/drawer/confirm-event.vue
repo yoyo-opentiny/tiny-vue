@@ -8,7 +8,11 @@
       @update:visible="visible = $event"
       @confirm="confirm"
     >
-      <div style="height: 200px; text-align: center">内容区域</div>
+      <div style="height: 200px; text-align: center">
+        <br />
+        <br />
+        <span>内容区域</span>
+      </div>
     </tiny-drawer>
   </div>
 </template>
@@ -31,7 +35,7 @@ export default {
       this.visible = true
     },
     confirm() {
-      Modal.message('确认事件')
+      Modal.message({ message: '确认事件', status: 'info' })
     }
   }
 }

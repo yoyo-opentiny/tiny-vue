@@ -75,16 +75,13 @@ export default defineComponent({
     nodeKey: String,
     parentKey: String,
     props: {
-      default(context) {
-        const ctx = this || context
-        const { lazy } = ctx
-        const defaultProps = {
+      default() {
+        return {
           children: 'children',
           label: 'label',
-          disabled: 'disabled'
+          disabled: 'disabled',
+          isLeaf: 'isLeaf'
         }
-        lazy && Object.assign(defaultProps, { isLeaf: 'isLeaf' })
-        return defaultProps
       }
     },
     renderAfterExpand: {
@@ -133,6 +130,11 @@ export default defineComponent({
       default: 'tree',
       validator: (value) => ~['tree', 'plain'].indexOf(value)
     },
+    // 平铺视图时，是否显示下面的辅助信息
+    showAuxi: {
+      type: Boolean,
+      default: true
+    },
     pathSplit: {
       type: String,
       default: '/'
@@ -144,6 +146,13 @@ export default defineComponent({
       type: Number,
       default: 0
     },
+    deleteNodeMethod: Function,
+    showCheckedMark: Boolean,
+    willChangeView: {
+      type: Boolean,
+      default: true
+    },
+    onlyCheckChildren: Boolean,
     showLine: Boolean
   },
   setup(props, context) {

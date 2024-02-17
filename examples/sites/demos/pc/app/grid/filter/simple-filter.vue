@@ -27,20 +27,6 @@ export default {
   },
   data() {
     return {
-      toolbarButtons: [
-        {
-          code: 'clearFilter',
-          name: '清空表格所有过滤条件'
-        },
-        {
-          code: 'clearFilterName',
-          name: '清空表格name字段的过滤条件'
-        },
-        {
-          code: 'closeFilter',
-          name: '手动关闭筛选面板'
-        }
-      ],
       tableData: [
         {
           id: '1',
@@ -133,7 +119,9 @@ export default {
         multi: true,
         simpleFilter: {
           searchConfig: {
-            component: Input
+            component: Input,
+            // 搜索框默认值
+            serachValue: 'WWW'
           }
         }
       }

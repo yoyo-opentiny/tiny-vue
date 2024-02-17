@@ -31,11 +31,13 @@
       v-if="shape === 'filter'"
       @click.stop="toggleDropDownVisible()"
       :show-close="clearable"
+      :placeholder="placeholder"
       :disabled="state.isDisabled"
       :label="label"
       :tip="tip"
       :value="state.multiple ? state.presentTags.map((item) => item.text).join('; ') : state.inputValue"
       :drop-down-visible="state.dropDownVisible"
+      :blank="blank"
     ></tiny-filter-box>
     <div class="tiny-cascader-content">
       <tiny-input
@@ -52,7 +54,7 @@
         :class="{ 'is-focus': state.dropDownVisible }"
         @focus="handleFocus"
         @blur="handleBlur"
-        @update:modelValue="handleInput"
+        @update:modelValue="(val) => handleInput(val, {})"
       >
         <template #suffix>
           <icon-close
@@ -184,7 +186,10 @@
 <script lang="ts">
 import { renderless, api } from '@opentiny/vue-renderless/cascader/vue'
 import { props, setup, defineComponent, directive } from '@opentiny/vue-common'
-import Clickoutside from '@opentiny/vue-renderless/common/deps/clickoutside' // 没有进行vue3，vue2适配
+
+import Clickoutside from '@opentiny/vue-renderless/common/deps/clickoutside'
+
+// 没有进行vue3，vue2适配
 import Input from '@opentiny/vue-input'
 import Tag from '@opentiny/vue-tag'
 import Scrollbar from '@opentiny/vue-scrollbar'
@@ -192,6 +197,7 @@ import CascaderPanel from '@opentiny/vue-cascader-panel'
 import FilterBox from '@opentiny/vue-filter-box'
 import Tooltip from '@opentiny/vue-tooltip'
 import { iconClose, iconChevronDown, iconChevronUp, iconYes } from '@opentiny/vue-icon'
+import '@opentiny/vue-theme/cascader/index.less'
 
 export default defineComponent({
   props: [
@@ -223,7 +229,8 @@ export default defineComponent({
     'shape',
     'label',
     'tip',
-    'hoverExpand'
+    'hoverExpand',
+    'blank'
   ],
   emits: [
     'update:modelValue',

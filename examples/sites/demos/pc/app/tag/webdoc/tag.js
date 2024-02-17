@@ -3,214 +3,119 @@ export default {
   owner: '',
   demos: [
     {
-      'demoId': 'basic-usage',
-      'name': { 'zh-CN': '基本用法', 'en-US': 'Basic Usage' },
-      'desc': { 'zh-CN': '详细用法参考如下示例', 'en-US': 'For details, see the following example.' },
-      'codeFiles': ['basic-usage.vue']
-    },
-    {
-      'demoId': 'color3',
-      'name': { 'zh-CN': '颜色', 'en-US': 'Color' },
-      'desc': {
-        'zh-CN': '<p>可通过 <code>color</code> 设置标签背景色。</p>\n',
-        'en-US': '<p>You can use <code>color</code> to set the background color of a label. </p>\n'
+      demoId: 'basic-usage',
+      name: {
+        'zh-CN': '基本用法',
+        'en-US': 'Basic Usage'
       },
-      'codeFiles': ['color3.vue']
+      desc: {
+        'zh-CN': '通过 <code>size</code> 设置尺寸大小，可选值： <code>(medium / small / mini)</code> 。',
+        'en-US': 'Set the size through <code>size</code> , with optional values: <code>(medium/small/mini)</code> .'
+      },
+      codeFiles: ['basic-usage.vue']
     },
     {
-      'demoId': 'hit',
-      'name': { 'zh-CN': '边框', 'en-US': 'Border' },
-      'desc': {
+      demoId: 'content',
+      name: {
+        'zh-CN': '配置式',
+        'en-US': 'Bind Value'
+      },
+      desc: {
+        'zh-CN': '通过 <code>value</code> 设置标签值。',
+        'en-US': 'Set label values through <code>value</code> . '
+      },
+      codeFiles: ['content.vue']
+    },
+    {
+      demoId: 'color3',
+      name: {
+        'zh-CN': '背景色与边框',
+        'en-US': 'Background color and border'
+      },
+      desc: {
+        'zh-CN': '通过 <code>color</code> 设置背景色， <code>hit</code> 设置边框。',
+        'en-US': 'Set the size through <code>size</code> , with optional values: <code>(medium/small/mini)</code> .'
+      },
+      codeFiles: ['color3.vue']
+    },
+    {
+      demoId: 'effect',
+      name: {
+        'zh-CN': '主题',
+        'en-US': 'Subject'
+      },
+      desc: {
         'zh-CN':
-          '<p>可通过 <code>hit</code> 设置标签边框，可选值（true/false）true为有边框，false无边框,默认值为 false。</p>\n',
+          '通过 <code>effect</code> 设置主题，可选值： <code>(dark / light / plain)</code> ； <code>type</code> 设置类型，可选值： <code>(success / info / warning / danger)</code> 。',
         'en-US':
-          '<p>You can use <code>hit</code> to set the label border. The options are true and false. The default value is false. </p>\n'
+          'Set the theme through <code>effect</code> , with optional values: <code>(dark/light/plain)</code> ; <code>type</code> Set the type, optional values: <code>(success/info/warning/danger)</code> .'
       },
-      'codeFiles': ['hit.vue']
+      codeFiles: ['effect.vue']
     },
     {
-      'demoId': 'tag-size',
-      'name': { 'zh-CN': '尺寸', 'en-US': 'Dimension' },
-      'desc': {
-        'zh-CN': '<p>可通过 <code>size</code> 设置Tag标签大小，可选值（medium / small / mini）。</p>\n',
-        'en-US': '<p>You can use <code>size</code> to set the tag size. The value can be medium, small, or mini. </p>\n'
+      demoId: 'disabled',
+      name: {
+        'zh-CN': '禁用',
+        'en-US': 'Disabled'
       },
-      'codeFiles': ['tag-size.vue']
+      desc: {
+        'zh-CN': '通过 <code>disabled</code> 设置禁用。',
+        'en-US': 'You can set <code>disabled</code> to disable. '
+      },
+      codeFiles: ['disabled.vue']
     },
     {
-      'demoId': 'effect',
-      'name': { 'zh-CN': '主题', 'en-US': 'Subject' },
-      'desc': {
+      demoId: 'delete',
+      name: {
+        'zh-CN': '删除操作',
+        'en-US': 'Delete'
+      },
+      desc: {
         'zh-CN':
-          '<p>可通过 <code>effect</code> 设置Tag标签主题，可选值（dark / light / plain）。\n<code>type</code>可以为标签设置相应的类型，可选值（success / info / warning / danger）。</p>\n',
+          '通过 <code>closable</code> 设置展示关闭按钮， <code>before-delete</code> 设置删除前的操作，可以在此钩子中做提示或确认；<code>close</code> 监听关闭按钮点击事件，做删除操作。',
         'en-US':
-          '<p>You can use <code>effect</code> to set the tag theme. The value can be dark, light, or plain. \n<code>type</code>You can set the corresponding type for the tag. The options are success, info, warning, and danger. </p>\n'
+          'Set the display close button through<code>close</code>, and<code>before-delete</code>to set the operation before deletion, which can be prompted or confirmed in this hook< Code>close</code>Listen to the close button click event and perform the deletion operation.'
       },
-      'codeFiles': ['effect.vue']
+      codeFiles: ['delete.vue']
     },
     {
-      'demoId': 'create',
-      'name': { 'zh-CN': '动态编辑标签', 'en-US': 'Dynamic Edit Tag' },
-      'desc': {
+      demoId: 'create',
+      name: {
+        'zh-CN': '动态编辑',
+        'en-US': 'Dynamic Edit'
+      },
+      desc: {
         'zh-CN':
-          '<p>通过点击<code>+ New Tag</code>在文本框中输入你要定义的标签名就能在标签列表中最后一个创建标签 。<code>closable</code> 属性可以为标签设置成可去除标签。</p>\n',
+          '添加新标签：监听 <code>+ New Tag</code> 元素点击事件，打开 <code>input</code> 输入框，监听输入框事件做添加操作；<br />\n          修改旧标签：监听旧标签的双击事件，打开 <code>input</code> 输入框，监听输入框事件做修改操作。',
         'en-US':
-          '<p>Click <code>+ New Tag</code> and enter the tag name in the text box to create the last tag in the tag list. The <code>closable</code> attribute can be set to removeable tags for tags. </p>\n'
+          'Add a new tag: listen for <code>+New Tag</code> element click events, open the <code>input</code> input box, and listen for input box events to add<br/>\n        Modify old tags: listen for double click events on old tags, open the <code>input</code> input box, and listen for input box events to make modifications.'
       },
-      'codeFiles': ['create.vue']
+      codeFiles: ['create.vue']
     },
     {
-      'demoId': 'closeable',
-      'name': { 'zh-CN': '可移除标签', 'en-US': 'Removable Label' },
-      'desc': { 'zh-CN': '详细用法参考如下示例', 'en-US': 'For details, see the following example.' },
-      'codeFiles': ['closeable.vue']
-    },
-    {
-      'demoId': 'disabled',
-      'name': { 'zh-CN': '禁用', 'en-US': 'Disabled' },
-      'desc': {
-        'zh-CN': '<p>可通过 <code>disabled</code> 设置标签禁用。</p>\n',
-        'en-US': '<p>You can set <code>disabled</code> to disable the tag. </p>\n'
+      demoId: 'slot-default',
+      name: {
+        'zh-CN': '图标型',
+        'en-US': 'Icon type'
       },
-      'codeFiles': ['disabled.vue']
-    },
-    {
-      'demoId': 'content',
-      'name': { 'zh-CN': '绑定值', 'en-US': 'Bound Value' },
-      'desc': {
-        'zh-CN': '<p>可通过 <code>value</code> 自定义标签值，主要用于配置式。</p>\n',
+      desc: {
+        'zh-CN': '通过 <code>default</code> 默认插槽自定义标签内容，生成图标标签。',
         'en-US':
-          '<p>You can use <code>value</code> to customize the tag value, which is mainly used in profiles. </p>\n'
+          'Generate icon labels by customizing the label content for the default slot through <code>default</code> .'
       },
-      'codeFiles': ['content.vue']
+      codeFiles: ['slot-default.vue']
     },
     {
-      'demoId': 'slot-default',
-      'name': { 'zh-CN': '图标标签（使用默认插槽）', 'en-US': 'Icon label (default slot)' },
-      'desc': { 'zh-CN': '详细用法参考如下示例', 'en-US': 'For details, see the following example.' },
-      'codeFiles': ['slot-default.vue']
-    },
-    {
-      'demoId': 'tag-event-click',
-      'name': { 'zh-CN': 'Click 事件', 'en-US': 'Click Event' },
-      'desc': { 'zh-CN': '详细用法参考如下示例', 'en-US': 'For details, see the following example.' },
-      'codeFiles': ['tag-event-click.vue']
-    },
-    {
-      'demoId': 'tag-event-close',
-      'name': { 'zh-CN': 'Close 事件', 'en-US': 'Close Event' },
-      'desc': { 'zh-CN': '详细用法参考如下示例', 'en-US': 'For details, see the following example.' },
-      'codeFiles': ['tag-event-close.vue']
-    }
-  ],
-  apis: [
-    {
-      'name': 'tag',
-      'type': 'component',
-      'properties': [
-        {
-          'name': 'hit',
-          'type': 'boolean',
-          'defaultValue': '该属性的默认值为 false',
-          'desc': { 'zh-CN': '是否有边框描边', 'en-US': 'Whether there is a border stroke' },
-          'demoId': 'hit'
-        },
-        {
-          'name': 'closeable',
-          'type': 'boolean',
-          'defaultValue': '',
-          'desc': { 'zh-CN': '是否可关闭', 'en-US': 'Can be disabled' },
-          'demoId': 'create'
-        },
-        {
-          'name': 'color',
-          'type': 'string',
-          'defaultValue': '',
-          'desc': {
-            'zh-CN': '颜色，支持 rgb,rgba,hex 三种格式;背景色',
-            'en-US': 'Color. The value can be in rgb, rgba, or hex format. Background color'
-          },
-          'demoId': 'color3'
-        },
-        {
-          'name': 'type',
-          'type': 'string',
-          'defaultValue': '',
-          'desc': {
-            'zh-CN': '显示类型;该属性的可选值为 success / info / warning / danger',
-            'en-US': 'Display type; The value of this attribute can be success / info / warning / danger'
-          },
-          'demoId': 'effect'
-        },
-        {
-          'name': 'size',
-          'type': 'string',
-          'defaultValue': '',
-          'desc': {
-            'zh-CN': '尺寸;该属性的可选值为 medium / small / mini',
-            'en-US': 'Size; The optional values of this attribute are medium / small / mini'
-          },
-          'demoId': 'tag-size'
-        },
-        {
-          'name': 'effect',
-          'type': 'string',
-          'defaultValue': '该属性的默认值为 light',
-          'desc': {
-            'zh-CN': '主题;该属性的可选值为 dark / light / plain',
-            'en-US': 'Subject; The optional values of this attribute are dark / light / plain'
-          },
-          'demoId': 'effect'
-        },
-        {
-          'name': 'disabled',
-          'type': 'boolean',
-          'defaultValue': '该属性的默认值为 false',
-          'desc': { 'zh-CN': '是否禁用', 'en-US': 'Whether to disable' },
-          'demoId': 'disabled'
-        },
-        {
-          'name': 'value',
-          'type': 'number, string',
-          'defaultValue': '',
-          'desc': {
-            'zh-CN': '通过绑定此属性设置自定义内容【3.9.1新增】',
-            'en-US': 'Set customized content by binding this attribute. [Added in 3.9.1]'
-          },
-          'demoId': 'content'
-        }
-      ],
-      'events': [
-        {
-          'name': 'close',
-          'type': 'Function(event)',
-          'defaultValue': '',
-          'desc': {
-            'zh-CN': '关闭 Tag 时触发的事件;event: 原生事件',
-            'en-US': 'This event is triggered when a tag is disabled. event: Native event'
-          },
-          'demoId': 'tag-event-close'
-        },
-        {
-          'name': 'click',
-          'type': 'Function(value, vm)',
-          'defaultValue': '',
-          'desc': {
-            'zh-CN': '点击 Tag 时触发的事件;event: 原生事件',
-            'en-US': 'This event is triggered when a tag is clicked. event: Native event'
-          },
-          'demoId': 'tag-event-click'
-        }
-      ],
-      'slots': [
-        {
-          'name': 'default',
-          'type': '',
-          'defaultValue': '',
-          'desc': { 'zh-CN': '标签内容', 'en-US': 'Label Content' },
-          'demoId': 'slot-default'
-        }
-      ]
+      demoId: 'tag-event-click',
+      name: {
+        'zh-CN': '点击事件',
+        'en-US': 'Click Event'
+      },
+      desc: {
+        'zh-CN': '通过 <code>click</code> 监听点击事件。',
+        'en-US': 'Listen for click events through <code>click</code> .'
+      },
+      codeFiles: ['tag-event-click.vue']
     }
   ]
 }

@@ -30,7 +30,7 @@ export default {
       demoId: 'loosing-text',
       name: {
         'zh-CN': '下拉可刷新的文字提示',
-        'en-US': 'basic usage'
+        'en-US': 'Drop-down refreshable text prompt'
       },
       desc: {
         'zh-CN': '<p>通过属性 <code>loosing-text</code> 设置 pulling 提示文字</p>',
@@ -42,7 +42,7 @@ export default {
       demoId: 'success-text',
       name: {
         'zh-CN': '刷新成功的文字',
-        'en-US': 'basic usage'
+        'en-US': 'Texts that are successfully refreshed'
       },
       desc: {
         'zh-CN': '<p>通过属性 <code>success-text</code> 设置 pulling 提示文字</p>',
@@ -54,7 +54,7 @@ export default {
       demoId: 'success-duration',
       name: {
         'zh-CN': '刷新成功的文字展示时长',
-        'en-US': '刷新成功的文字展示时长'
+        'en-US': 'Text display duration that is successfully refreshed.'
       },
       desc: {
         'zh-CN': '<p>设置属性 <code>success-duration</code> 指定延时时间</p>',
@@ -81,9 +81,9 @@ export default {
         'en-US': 'Head height when pulling down'
       },
       desc: {
-        'zh-CN': `<p>设置属性 <code>head-height</code> 为数字或字符串，例如：<code>100/'100'/'100px'/'6rem'</code></p>`,
-        'en-US': `<p>
-        Set the property <code>head-height</code> to a number or string, for example: <code>100/'100'/'100px'/'6rem'</code></p>`
+        'zh-CN': "<p>设置属性 <code>head-height</code> 为数字或字符串，例如：<code>100/'100'/'100px'/'6rem'</code></p>",
+        'en-US':
+          "<p>Set the property <code>head-height</code> to a number or string, for example: <code>100/'100'/'100px'/'6rem'</code></p>"
       },
       codeFiles: ['head-height.vue']
     },
@@ -111,6 +111,5 @@ export default {
       },
       codeFiles: ['pull-refresh-slot.vue']
     }
-  ],
-  apis: []
+  ]
 }

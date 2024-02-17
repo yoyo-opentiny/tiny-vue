@@ -28,6 +28,8 @@ class Touch {
     this.screenY = pos.screenY + deltaY
     this.clientX = pos.clientX + deltaX
     this.clientY = pos.clientY + deltaY
+    this.offsetX = pos.offsetX + deltaX
+    this.offsetY = pos.offsetY + deltaY
   }
 }
 
@@ -74,27 +76,29 @@ const triggerTouch = (eventName, mouseEv) => {
 }
 
 const onMouse = (touchType) => (ev) => {
-  if ('mousedown' === ev.type) {
+  if (ev.type === 'mousedown') {
     initiated = true
   }
 
-  if ('mouseup' === ev.type) {
+  if (ev.type === 'mouseup') {
     initiated = false
   }
 
-  if ('mousemove' === ev.type && !initiated) {
+  if (ev.type === 'mousemove' && !initiated) {
     return
   }
 
-  if ('mousedown' === ev.type || !mouseTarget) {
+  if (ev.type === 'mousedown' || !mouseTarget) {
     mouseTarget = ev.target
   }
 
-  if ((eventTarget = closest(mouseTarget, '[data-tiny-touch-simulate-container]')) && eventTarget.dispatchEvent) {
+  eventTarget = closest(mouseTarget, '[data-tiny-touch-simulate-container]')
+
+  if (eventTarget && eventTarget.dispatchEvent) {
     triggerTouch(touchType, ev)
   }
 
-  if ('mouseup' === ev.type) {
+  if (ev.type === 'mouseup') {
     eventTarget = null
     mouseTarget = null
   }

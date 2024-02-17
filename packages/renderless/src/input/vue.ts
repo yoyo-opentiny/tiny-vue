@@ -9,7 +9,7 @@
  * A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
  *
  */
-import {
+import type {
   IInputApi,
   IInputProps,
   IInputState,
@@ -46,8 +46,12 @@ import {
   hasSelection,
   handleEnterDisplayOnlyContent,
   hiddenPassword,
-  dispatchDisplayedValue,
-  getDisplayedValue
+  setInputDomValue,
+  getDisplayedMaskValue,
+  inputStyle,
+  handleEnterTextarea,
+  handleLeaveTextarea,
+  getDisplayOnlyText
 } from './index'
 import useStorageBox from '../tall-storage/vue-storage-box'
 
@@ -81,7 +85,10 @@ export const api = [
   'isMemoryStorage',
   'hasSelection',
   'handleEnterDisplayOnlyContent',
-  'hiddenPassword'
+  'hiddenPassword',
+  'inputStyle',
+  'handleEnterTextarea',
+  'handleLeaveTextarea'
 ]
 
 const initState = ({
@@ -91,19 +98,27 @@ const initState = ({
   props,
   parent,
   constants,
-  api
-}: Pick<IInputRenderlessParams, 'reactive' | 'computed' | 'mode' | 'props' | 'parent' | 'constants' | 'api'>) => {
+  api,
+  vm
+}: Pick<
+  IInputRenderlessParams,
+  'reactive' | 'computed' | 'mode' | 'props' | 'parent' | 'constants' | 'api' | 'vm'
+>) => {
   const state = reactive({
     mode,
+    maskSymbol: constants.MASKSYMBOL,
     focused: false,
     hovering: false,
     isComposing: false,
     passwordVisible: false,
+    maskValueVisible: false,
     boxVisibility: false,
     textareaCalcStyle: {},
-    checkedLable: '',
+    checkedLabel: '',
+    enteredTextarea: false,
     sheetvalue: props.modelValue,
     inputSize: computed(() => props.size || state.formItemSize),
+    inputSizeMf: computed(() => props.size || (parent.tinyForm || {}).size),
     showClear: computed(
       () =>
         props.clearable &&
@@ -112,6 +127,7 @@ const initState = ({
         state.nativeInputValue &&
         (state.focused || state.hovering)
     ),
+    textareaHeight: vm.theme === 'saas' ? '28px' : '30px',
     upperLimit: computed(() => parent.$attrs.maxlength),
     textLength: computed(() => textLength(props.modelValue)),
     inputExceed: computed(() => state.isWordLimitVisible && state.textLength > state.upperLimit),
@@ -123,9 +139,11 @@ const initState = ({
         props.disabled || (parent.tinyForm || {}).disabled || state.isDisplayOnly || (parent.tinyForm || {}).displayOnly
     ),
     validateState: computed(() => (parent.formItem ? parent.formItem.validateState : '')),
+    inputStyle: computed(() => api.inputStyle()),
     textareaStyle: computed(() => ({
       ...state.textareaCalcStyle,
-      resize: props.resize
+      resize: props.resize,
+      textAlign: props.textAlign
     })),
     needStatusIcon: computed(() => (parent.tinyForm ? parent.tinyForm.statusIcon : false)),
     showPwdVisible: computed(
@@ -149,7 +167,9 @@ const initState = ({
         ['text', 'textarea', 'password', 'number'].includes(props.type)
     ),
     displayOnlyTooltip: '',
-    hiddenPassword: computed(() => api.hiddenPassword())
+    hiddenPassword: computed(() => api.hiddenPassword()),
+    displayedMaskValue: computed(() => api.getDisplayedMaskValue()),
+    displayOnlyText: computed(() => api.getDisplayOnlyText())
   })
 
   return state as IInputState
@@ -161,11 +181,15 @@ const initApi = ({
   dispatch,
   broadcast,
   emit,
-  refs,
+  vm,
   props,
   CLASS_PREFIX,
-  parent
-}: Pick<IInputRenderlessParams, 'api' | 'state' | 'dispatch' | 'broadcast' | 'emit' | 'refs' | 'props' | 'parent'> & {
+  parent,
+  nextTick
+}: Pick<
+  IInputRenderlessParams,
+  'api' | 'state' | 'dispatch' | 'broadcast' | 'emit' | 'refs' | 'props' | 'parent' | 'vm' | 'nextTick'
+> & {
   CLASS_PREFIX: IInputClassPrefixConstants
 }) => {
   Object.assign(api, {
@@ -174,7 +198,7 @@ const initApi = ({
     broadcast,
     showBox: showBox(state),
     clear: clear(emit),
-    getInput: getInput(refs),
+    getInput: getInput(vm),
     handleChange: handleChange(emit),
     watchFormSelect: watchFormSelect({ emit, props, state }),
     calcIconOffset: calcIconOffset({ CLASS_PREFIX, parent }),
@@ -182,8 +206,11 @@ const initApi = ({
     calculateNodeStyling: calculateNodeStyling(),
     handleCompositionStart: handleCompositionStart(state),
     handleCompositionUpdate: handleCompositionUpdate(state),
-    dispatchDisplayedValue: dispatchDisplayedValue({ state, props, dispatch, api }),
-    getDisplayedValue: getDisplayedValue({ state, props })
+    setInputDomValue: setInputDomValue({ state, props, nextTick, vm }),
+    getDisplayOnlyText: getDisplayOnlyText({ parent, props, state }),
+    handleEnterTextarea: handleEnterTextarea({ api, state, props, nextTick }),
+    handleLeaveTextarea: handleLeaveTextarea({ api, state, props, nextTick, vm }),
+    inputStyle: inputStyle({ props })
   })
 }
 
@@ -197,8 +224,8 @@ const mergeApi = ({
   nextTick,
   parent,
   state,
-  refs
-}: Pick<IInputRenderlessParams, 'api' | 'emit' | 'props' | 'state' | 'nextTick' | 'parent' | 'refs'> & {
+  vm
+}: Pick<IInputRenderlessParams, 'api' | 'emit' | 'props' | 'state' | 'nextTick' | 'parent' | 'vm'> & {
   storages: ReturnType<typeof useStorageBox>
   componentName: string
   eventName: IInputEventNameConstants
@@ -220,11 +247,12 @@ const mergeApi = ({
       emit,
       eventName: eventName.blur,
       props,
-      state
+      state,
+      vm
     }),
     handleFocus: handleFocus({ api, emit, state }),
     handleInput: handleInput({ api, emit, nextTick, state }),
-    resizeTextarea: resizeTextarea({ api, parent, refs, state }),
+    resizeTextarea: resizeTextarea({ api, parent, vm, state, props }),
     updateIconOffset: updateIconOffset(api),
     calcTextareaHeight: calcTextareaHeight({
       api,
@@ -237,7 +265,8 @@ const mergeApi = ({
     handlePasswordVisible: handlePasswordVisible({ api, nextTick, state }),
     hasSelection: hasSelection(api),
     handleEnterDisplayOnlyContent: handleEnterDisplayOnlyContent({ state, props }),
-    hiddenPassword: hiddenPassword({ state, props })
+    hiddenPassword: hiddenPassword({ state, props }),
+    getDisplayedMaskValue: getDisplayedMaskValue({ state })
   })
 }
 
@@ -267,6 +296,19 @@ const initWatch = ({
       if (props.validateEvent) {
         api.dispatch(componentName, eventName.change, [value])
       }
+
+      api.setInputDomValue()
+    }
+  )
+
+  watch(() => state.maskValueVisible, api.setInputDomValue)
+
+  watch(() => state.inputDisabled, api.setInputDomValue)
+
+  watch(
+    () => props.mask,
+    () => {
+      api.setInputDomValue('mask')
     }
   )
 
@@ -301,7 +343,6 @@ const initWatch = ({
         api.setNativeInputValue()
         api.resizeTextarea()
         api.updateIconOffset()
-        api.dispatchDisplayedValue()
       })
     }
   )
@@ -325,15 +366,15 @@ export const renderless = (
     Input: constants.inputMode(mode),
     InputGroup: constants.inputGroupMode(mode)
   }
-  const state = initState({ reactive, computed, mode, props, parent, constants, api })
+  const state = initState({ reactive, computed, mode, props, parent, constants, api, vm })
 
-  initApi({ api, state, dispatch, broadcast, emit, refs, props, CLASS_PREFIX, parent })
+  initApi({ api, state, dispatch, broadcast, emit, refs, props, CLASS_PREFIX, parent, vm, nextTick })
 
   const storages = useStorageBox({ api, props, reactive, toRefs })
 
   parent.tinyForm = parent.tinyForm || inject('form', null)
 
-  mergeApi({ api, storages, componentName, emit, eventName, props, state, nextTick, parent, refs })
+  mergeApi({ api, storages, componentName, emit, eventName, props, state, nextTick, parent, vm })
 
   initWatch({ watch, state, api, props, nextTick, emit, componentName, eventName })
 
@@ -341,7 +382,7 @@ export const renderless = (
     api.setNativeInputValue()
     api.resizeTextarea()
     api.updateIconOffset()
-    api.dispatchDisplayedValue()
+    api.setInputDomValue()
 
     dispatch('Select', 'input-mounted', vm.$el)
     dispatch('Tooltip', 'tooltip-update', vm.$el)

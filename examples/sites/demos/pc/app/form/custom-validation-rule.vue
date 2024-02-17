@@ -1,15 +1,6 @@
 <template>
   <div class="demo-form">
-    <tiny-form
-      ref="ruleFormRef"
-      :model="createData"
-      :rules="rules"
-      :validate-on-rule-change="isvalidate"
-      label-width="100px"
-      validate-type="text"
-      :inline-message="true"
-      @validate="validate"
-    >
+    <tiny-form ref="ruleFormRef" :model="createData" :rules="rules" :validate-on-rule-change="isValidate">
       <tiny-form-item label="用户名" prop="username">
         <tiny-input v-model="createData.username"></tiny-input>
       </tiny-form-item>
@@ -18,14 +9,14 @@
       </tiny-form-item>
       <tiny-form-item>
         <tiny-button type="primary" @click="handleSubmit()"> 注册 </tiny-button>
-        <tiny-button type="primary" @click="removePass"> 清除密码校验 </tiny-button>
+        <tiny-button type="primary" @click="changeRule"> 改变校验规则 </tiny-button>
       </tiny-form-item>
     </tiny-form>
   </div>
 </template>
 
-<script lang="jsx">
-import { Form, FormItem, Input, Button, Modal } from '@opentiny/vue'
+<script>
+import { Form, FormItem, Input, Button } from '@opentiny/vue'
 
 export default {
   components: {
@@ -48,7 +39,7 @@ export default {
         username: '',
         password: ''
       },
-      isvalidate: true,
+      isValidate: true,
       rules: {
         username: [
           { required: true, message: '必填', trigger: 'blur' },
@@ -62,24 +53,12 @@ export default {
     }
   },
   methods: {
-    validate(val) {
-      Modal.message({
-        message: `表单项被校验后触发的事件,所校验字段为:${val}`,
-        status: 'info'
-      })
-    },
     handleSubmit() {
-      this.$refs.ruleFormRef.validate((valid) => {
-        if (valid) {
-          Modal.alert('校验通过，开始注册！')
-        } else {
-          Modal.message({ message: '校验不通过！！', status: 'warning' })
-          return false
-        }
+      this.$refs.ruleFormRef.validate(() => {
+        // empty
       })
     },
-    removePass() {
-      this.isvalidate = false // 通过配置validate-on-rule-change属性,设置是否在rules属性改变后立即触发一次验证
+    changeRule() {
       this.rules = {
         username: [
           { required: true, message: '必填', trigger: 'blur' },

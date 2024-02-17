@@ -16,6 +16,8 @@ import {
   loadingDate,
   scrollStart,
   scrollEnd,
+  clear,
+  close,
   confirm
 } from './index'
 import { initYearMonthPanel, getOffsetMonth, loadYearMonth } from './year-month'
@@ -33,14 +35,12 @@ export const api = [
   'scrollStart',
   'scrollEnd',
   'loadingDate',
+  'clear',
+  'close',
   'formatDate'
 ]
 
-export const renderless = (
-  props,
-  { computed, reactive, watch, onMounted },
-  { emit, vm, nextTick, constants }
-) => {
+export const renderless = (props, { computed, reactive, watch, onMounted }, { emit, vm, nextTick, constants }) => {
   const { DATE_RANGE, DATE_TIME_RANGE, YEAR_MONTH_RANGE, YEAR_MONTH } = constants.TYPE
   const api = {}
   const state = reactive({
@@ -93,7 +93,9 @@ export const renderless = (
     loadingDate: loadingDate({ state, api }),
     loadYearMonth: loadYearMonth({ state, api }),
     getOffsetMonth: getOffsetMonth(),
-    formatDate: formatDate({ props, constants })
+    formatDate: formatDate({ props, constants }),
+    clear: clear({ state, emit, api }),
+    close: close({ emit, vm })
   })
 
   watch(() => props.visible, api.watchVisible)

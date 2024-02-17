@@ -24,7 +24,7 @@
   </div>
 </template>
 
-<script lang="jsx">
+<script>
 import { Form, FormItem, Input, DatePicker, Button, Modal, RadioGroup } from '@opentiny/vue'
 
 export default {
@@ -41,22 +41,6 @@ export default {
       options: [
         { label: 'A', text: '很好', events: { click: this.handleClick } },
         { label: 'B', text: '一般' }
-      ],
-      options2: [
-        {
-          value: 'zhinan',
-          label: '指南',
-          children: [
-            {
-              value: 'anzhuang',
-              label: '安装'
-            },
-            {
-              value: 'kaifa',
-              label: '开发'
-            }
-          ]
-        }
       ],
       createData: {
         radio: 'A',

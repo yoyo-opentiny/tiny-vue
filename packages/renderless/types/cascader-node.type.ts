@@ -1,21 +1,36 @@
-import { ICascaderPanelApi, ICascaderPanelConfig, ICascaderPanelNodePropValue, ICascaderPanelNodeValue, ICascaderPanelNode } from './cascader-panel.type'
-import { ISharedRenderlessFunctionParams } from './shared.type'
-import type { isInPath, handleExpand, comptCheckPath, handleCheckChange, handleMultiCheckChange } from '../src/cascader-node'
+import type { VNode } from 'vue'
+import type {
+  ICascaderPanelApi,
+  ICascaderPanelConfig,
+  ICascaderPanelNodePropValue,
+  ICascaderPanelNodeValue,
+  ICascaderPanelNode
+} from './cascader-panel.type'
+import type { ISharedRenderlessFunctionParams } from './shared.type'
+import type {
+  isInPath,
+  handleExpand,
+  comptCheckPath,
+  handleCheckChange,
+  handleMultiCheckChange,
+  handleNodeClick
+} from '../src/cascader-node'
 
-export type ICascaderNodeProps = {
+export interface ICascaderNodeProps {
   node: ICascaderPanelNode
   nodeId: string
 }
 
 export interface ICascaderNodeState {
-  config: ICascaderPanelConfig,
-  isLeaf: boolean,
-  isDisabled: boolean,
-  checkedValue: ICascaderPanelNodeValue[],
-  isChecked: boolean,
-  inActivePath: boolean,
-  inCheckedPath: boolean,
+  config: ICascaderPanelConfig
+  isLeaf: boolean
+  isDisabled: boolean
+  checkedValue: ICascaderPanelNodeValue[]
+  isChecked: boolean
+  inActivePath: boolean
+  inCheckedPath: boolean
   value: ICascaderPanelNodePropValue
+  nodeLabel: string | VNode
 }
 
 export interface ICascaderNodeApi {
@@ -25,6 +40,7 @@ export interface ICascaderNodeApi {
   comptCheckPath: ReturnType<typeof comptCheckPath>
   handleCheckChange: ReturnType<typeof handleCheckChange>
   handleMultiCheckChange: ReturnType<typeof handleMultiCheckChange>
+  handleNodeClick: ReturnType<typeof handleNodeClick>
 }
 
 export type ICascaderNodeRenderlessParams = ISharedRenderlessFunctionParams<never> & {

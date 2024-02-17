@@ -3,265 +3,120 @@ export default {
   owner: '',
   demos: [
     {
-      'demoId': 'data-resource',
-      'name': { 'zh-CN': '基本用法', 'en-US': 'Basic Usage' },
-      'desc': { 'zh-CN': '详细用法参考如下示例', 'en-US': 'For details, see the following example.' },
-      'codeFiles': ['data-resource.vue']
+      demoId: 'line-horizontal',
+      name: {
+        'zh-CN': '横向单链型',
+        'en-US': 'Horizontal Chain Steps'
+      },
+      desc: {
+        'zh-CN': '<p>通过添加 <code>line</code> 属性用作横向单链型步骤条。</p>',
+        'en-US': '<p>Use the <code>line</code> property to create a horizontal chain steps.</p>'
+      },
+      codeFiles: ['line-horizontal.vue']
     },
     {
-      'demoId': 'space',
-      'name': { 'zh-CN': '节点宽度', 'en-US': 'Common Step Bar' },
-      'desc': {
-        'zh-CN': '<p>使用 <code>space</code>属性配置步骤条节点的宽度。</p>\n',
+      demoId: 'line-vertical',
+      name: {
+        'zh-CN': '垂直单链型',
+        'en-US': 'Vertical Line Steps'
+      },
+      desc: {
+        'zh-CN': '<p>使用 <code>line</code> 与 <code>vertical</code> 属性设置为条形步骤条。</p>\n',
+        'en-US': 'Use <code>line</code> and <code>vertical<</code> attribute to set vertical steps.'
+      },
+      codeFiles: ['line-vertical.vue']
+    },
+    {
+      demoId: 'advanced-steps',
+      name: {
+        'zh-CN': '条形步骤条',
+        'en-US': 'Bar steps'
+      },
+      desc: {
+        'zh-CN': '<p>默认显示为条形步骤条。</p>\n',
+        'en-US': '<p>The default display is a bar-style steps.</p>'
+      },
+      codeFiles: ['advanced-steps.vue']
+    },
+    {
+      demoId: 'size',
+      name: {
+        'zh-CN': '尺寸',
+        'en-US': 'Use of slots'
+      },
+      desc: {
+        'zh-CN':
+          '<p>步骤条两种模式支持 <code>size</code> 属性设置尺寸：</p>\n        <p>1. <code>line</code> 单链型模式支持 <code>mini</code>、<code>small</code>、<code>medium</code>、<code>large</code> 4 种尺寸，默认值为 <code>medium</code>。</p>\n        <p>2. <code>advanced</code> 高级向导模式支持 <code>medium</code>、<code>large</code> 2 种尺寸，默认值为 <code>medium</code>。</p>',
         'en-US':
-          '<p>Use the <code>tiny-time-line</code> tag and set <code>type</code> to <code>normal</code> to implement common steps. </p>\n'
+          '<p>Two modes of the steps support the <code>size</code>  setting:</p>\n        <p>1. The <code>line</code> mode supports 4 sizes: <code>mini</code>, <code>small</code>, <code>medium</code>, and <code>large</code>, with a default value of <code>medium</code>.</p>\n        <p>2. The <code>advanced</code> mode support 2 sizes: <code>medium</code>, and <code>large</code>, with a default value of <code>medium</code>.</p>'
       },
-      'codeFiles': ['space.vue']
+      codeFiles: ['size.vue']
     },
     {
-      'demoId': 'normal-steps',
-      'name': { 'zh-CN': '普通步骤条', 'en-US': 'Advanced Wizard' },
-      'desc': {
-        'zh-CN':
-          '<p>使用 <code>tiny-time-line</code> 标签，并设置 <code>type</code> 为 <code>normal</code> 实现普通步骤条。</p>\n',
-        'en-US': '<p>Set <code>type</code> to <code>advanced</code> to enable the advanced wizard function. </p>\n'
+      demoId: 'node-width',
+      name: {
+        'zh-CN': '节点宽度',
+        'en-US': 'Common Step Bar'
       },
-      'codeFiles': ['normal-steps.vue']
-    },
-    {
-      'demoId': 'node-status',
-      'name': { 'zh-CN': '节点状态', 'en-US': 'Timeline Step Bar' },
-      'desc': {
+      desc: {
         'zh-CN':
-          '<p>通过单个节点数据的<code>disabled</code> 属性配置是否禁用;通过 <code>error</code> 属性配置错误状态</p>\n',
+          '<p>使用 <code>space</code> 属性配置步骤条节点的宽度。</p><p>通过 <code>flex</code> 属性开启总宽度自适应，节点等宽，撑满父容器，节点名称超出省略。</p>',
         'en-US':
-          '<p>Use the <code>tiny-time-line</code> tag and set <code>type</code> to <code>timeline</code> to implement the timeline step bar. If the <code>vertical</code> attribute is configured, the timeline step bar changes to the vertical mode. If the <code>reverse</code> attribute is configured, the timeline step bar changes to the vertical mode. </p>\n'
+          '<p>Using <code>space</code> attribute to set node width. </p><p>Enable responsive total width using the <code>flex</code> property, with equal width for nodes that fill the parent container, and node names that exceed the container width are truncated.</p>'
       },
-      'codeFiles': ['node-status.vue']
+      codeFiles: ['node-width.vue']
     },
     {
-      'demoId': 'text-position',
-      'name': { 'zh-CN': '文本内容位置', 'en-US': 'Customized Data Item' },
-      'desc': {
+      demoId: 'duration',
+      name: {
+        'zh-CN': '节点滚动时间',
+        'en-US': 'Node Scroll Time'
+      },
+      desc: {
         'zh-CN':
-          '<p>通过<code>textPosition</code> 配置节点内容位置，默认位于序号下方, 取值为<code>"right"</code>时内容位于序号右边。</p>\n',
+          '<p>通过 <code>duration</code> 设置节点左右滚动的持续时间，默认值为 300（单位 ms），设置 0 则无滚动动画，仅开启 advanced 高级向导模式有效。</p>',
         'en-US':
-          "<p>By default, the subobjects of bound data contain the name, count, and status fields. \n<code>name-field</code>: Set the field name corresponding to the name in the node information. The default value is'name'. \n<code>count-field</code>: field name corresponding to the logo count in the advanced wizard. The default value is'count'. \n<code>status-field</code>: field name corresponding to the data status. The default value is status. </p>\n"
+          '<p>Set the duration of node left and right scrolling through the <code>duration</code> parameter, with a default value of 300 (in ms). Setting it to 0 disables the scrolling animation. This parameter only works in advanced wizard mode.</p>'
       },
-      'codeFiles': ['text-position.vue']
+      codeFiles: ['duration.vue']
     },
     {
-      'demoId': 'show-divider',
-      'name': { 'zh-CN': '底部分割线', 'en-US': 'Order Process' },
-      'desc': {
+      demoId: 'custom-steps-item',
+      name: {
+        'zh-CN': '自定义字段',
+        'en-US': 'Custom fields'
+      },
+      desc: {
         'zh-CN':
-          '<p>通过<code>show-divider</code> 设置是否显示步骤条底部分隔线，仅当节点文本内容位于序号右边时生效。</p>\n',
-        'en-US': '<p>The Steps component is used to simulate the order process. </p>\n'
+          "<p>可以通过以下属性自定义数据项字段：<br /><code>name-field</code>： 设置节点信息中名称对应的字段名，默认为 'name'  <br /><code>count-field</code>：设置条形步骤条里徽标计数对应的字段名，默认为 'count' 。<br /><code>status-field</code>：设置数据状态对应的字段名，默认为 'status' 。</p>\n",
+        'en-US':
+          "You can customize the data item fields with the following attributes.<br /><code>name-field</code>: Set the field name corresponding to the name in the node information, the default is 'name'.<br /><code>count-field</code>Set the field name corresponding to the count in the logo counter of the bar step bar, the default is 'count'.<br /><code>status-field</code>: Set the field name corresponding to the status in the data item, the default is 'status'."
       },
-      'codeFiles': ['show-divider.vue']
+      codeFiles: ['custom-steps-item.vue']
     },
     {
-      'demoId': 'slot-description',
-      'name': { 'zh-CN': '节点描述信息', 'en-US': 'Node Description' },
-      'desc': {
-        'zh-CN': '<p>通过<code>description</code> 插槽添加单个节点的补充描述信息。</p>\n',
-        'en-US': '<p>The <code>click</code> event is triggered when a node is clicked. </p>\n'
+      demoId: 'slot-item',
+      name: {
+        'zh-CN': 'item插槽',
+        'en-US': 'item slot'
       },
-      'codeFiles': ['slot-description.vue']
-    },
-    {
-      'demoId': 'slot-active-node-desc',
-      'name': { 'zh-CN': '当前节点描述信息', 'en-US': 'Click Event' },
-      'desc': {
-        'zh-CN': '<p>通过<code>active-node-desc</code> 插槽添加当前节点一些自定义的描述信息。</p>\n',
-        'en-US': '<p>The <code>click</code> event is triggered when a node is clicked. </p>\n'
+      desc: {
+        'zh-CN': '<p>通过插槽 <code>item</code> 自定义节点内容。</p>\n',
+        'en-US': 'Customize step bar node content through scope slot <code>item</code>.'
       },
-      'codeFiles': ['slot-active-node-desc.vue']
+      codeFiles: ['slot-item.vue']
     },
     {
-      'demoId': 'size',
-      'name': { 'zh-CN': '尺寸', 'en-US': 'Use of slots' },
-      'desc': {
-        'zh-CN': '<p>通过 <code>size</code> 设置步骤条尺寸。</p>\n',
-        'en-US': '<p>Customize the content of the step bar node through the scope slot <code>item</code>. </p>\n'
-      },
-      'codeFiles': ['size.vue']
-    },
-    {
-      'demoId': 'advanced-steps',
-      'name': { 'zh-CN': '高级向导', 'en-US': '' },
-      'desc': { 'zh-CN': '<p>设置 <code>type</code> 为 <code>advanced</code> 启用高级向导功能。</p>\n', 'en-US': '' },
-      'codeFiles': ['advanced-steps.vue']
-    },
-    {
-      'demoId': 'timeline-steps',
-      'name': { 'zh-CN': '时间线步骤条', 'en-US': '' },
-      'desc': {
-        'zh-CN':
-          '<p>使用 <code>tiny-time-line</code> 标签，并设置 <code>type</code> 为 <code>timeline</code> 实现时间线步骤条。同时若配置 <code>vertical</code> 属性，时间线步骤条将变成竖向模式，而若再配置 <code>reverse</code> 属性，则还可以实现时间线步骤条竖向模式的反向形式。</p>\n',
+      demoId: 'click',
+      name: {
+        'zh-CN': '点击事件',
         'en-US': ''
       },
-      'codeFiles': ['timeline-steps.vue']
-    },
-    {
-      'demoId': 'custom-steps-item',
-      'name': { 'zh-CN': '自定义数据项', 'en-US': '' },
-      'desc': {
-        'zh-CN':
-          "<p>默认情况下，绑定数据的子对象包含 name、count 字段。\n<code>name-field</code>：设置节点信息中名称对应的字段名，默认为 'name' 。\n<code>count-field</code>：设置高级向导里徽标计数对应的字段名，默认为 'count' 。\n<code>status-field</code>：设置数据状态对应的字段名，默认为 'status' 。</p>\n",
-        'en-US': ''
+      desc: {
+        'zh-CN': '<p>点击节点时触发 <code>click</code> 事件。</p>\n',
+        'en-US': 'Trigger <code>click</code> event when clicking on a node.'
       },
-      'codeFiles': ['custom-steps-item.vue']
-    },
-    {
-      'demoId': 'only-number',
-      'name': { 'zh-CN': '序号仅显示数字', 'en-US': '' },
-      'desc': {
-        'zh-CN':
-          "<p>设置<code>only-number</code>为true时，节点只显示数字序号而不显示任何状态图标。</p>\n",
-        'en-US': ''
-      },
-      'codeFiles': ['only-number.vue']
-    },
-    {
-      'demoId': 'order-progress',
-      'name': { 'zh-CN': '订单流程', 'en-US': '' },
-      'desc': { 'zh-CN': '<p>通过 Steps 组件模拟订单流程。</p>\n', 'en-US': '' },
-      'codeFiles': ['order-progress.vue']
-    },
-    {
-      'demoId': 'click',
-      'name': { 'zh-CN': '点击事件', 'en-US': '' },
-      'desc': { 'zh-CN': '<p>点击节点时触发 <code>click</code> 事件。</p>\n', 'en-US': '' },
-      'codeFiles': ['click.vue']
-    },
-    {
-      'demoId': 'slot',
-      'name': { 'zh-CN': '插槽的使用', 'en-US': '' },
-      'desc': { 'zh-CN': '<p>通过作用域插槽 <code>item</code> 自定义步骤条节点内容。</p>\n', 'en-US': '' },
-      'codeFiles': ['slot.vue']
-    }
-  ],
-  apis: [
-    {
-      'name': 'steps',
-      'type': 'component',
-      'properties': [
-        {
-          'name': 'active',
-          'type': 'number',
-          'defaultValue': '-1',
-          'desc': {
-            'zh-CN': '设置步骤条的选中步骤，默认为-1 。',
-            'en-US': 'Set the selected step of the step bar. The default value is -1.'
-          },
-          'demoId': 'advanced-steps'
-        },
-        {
-          'name': 'count-field',
-          'type': 'string',
-          'defaultValue': 'count',
-          'desc': {
-            'zh-CN': "设置高级向导里徽标计数对应的字段名，默认为 'count'",
-            'en-US':
-              "Set the field name corresponding to the logo count in the advanced wizard. The default value is'count'"
-          },
-          'demoId': 'custom-steps-item'
-        },
-        {
-          'name': 'data',
-          'type': 'object , Array',
-          'defaultValue': '',
-          'desc': { 'zh-CN': '设置步骤条的数据。', 'en-US': 'Set the step bar data.' },
-          'demoId': 'data-resource'
-        },
-        {
-          'name': 'name-field',
-          'type': 'string',
-          'defaultValue': 'name',
-          'desc': {
-            'zh-CN': "设置节点信息中名称对应的字段名，默认为 'name'",
-            'en-US': "Set the field name corresponding to the name in the node information. The default value is'name'"
-          },
-          'demoId': 'custom-steps-item'
-        },
-        {
-          'name': 'space',
-          'type': 'string, number',
-          'defaultValue': '',
-          'desc': {
-            'zh-CN': '设置步骤条节点的宽度, 取值为数字、带长度单位数值与百分比，数字会默认以px为长度单位。',
-            'en-US': 'Set the width of the step bar.'
-          },
-          'demoId': 'space'
-        },
-        {
-          'name': 'status-field',
-          'type': 'string',
-          'defaultValue': 'status',
-          'desc': {
-            'zh-CN': "设置数据状态对应的字段名，默认为 'status'",
-            'en-US': "Name of the field corresponding to the data status. The default value is'status'"
-          },
-          'demoId': 'custom-steps-item'
-        },
-        {
-          'name': 'text-position',
-          'type': 'string',
-          'defaultValue': 'bottom',
-          'desc': { 'zh-CN': '设置节点文本内容的位置, 可选值有right, bottom', 'en-US': '' },
-          'demoId': 'text-position'
-        },
-        {
-          'name': 'show-divider',
-          'type': 'boolean',
-          'defaultValue': 'false',
-          'desc': { 'zh-CN': '设置是否显示步骤条底部分割线', 'en-US': '' },
-          'demoId': 'show-divider'
-        },
-        {
-          'name': 'only-number',
-          'type': 'boolean',
-          'defaultValue': 'false',
-          'desc': { 'zh-CN': '节点序号是否只显示数字', 'en-US': '' },
-          'demoId': 'only-number'
-        },
-      ],
-      'events': [
-        {
-          'name': 'click',
-          'type': '',
-          'defaultValue': '',
-          'desc': {
-            'zh-CN': '节点的点击事件，参数（index:节点索引, node：节点数据信息）',
-            'en-US': 'Node click event. Parameter: (index: node index, node: node data information)'
-          },
-          'demoId': 'click'
-        }
-      ],
-      'slots': [
-        {
-          'name': 'item',
-          'type': '',
-          'defaultValue': '',
-          'desc': { 'zh-CN': '步骤条数据项插槽', 'en-US': 'Step bar data item slot' },
-          'demoId': 'slot'
-        },
-        {
-          'name': 'description',
-          'type': '',
-          'defaultValue': '',
-          'desc': { 'zh-CN': '节点描述信息插槽', 'en-US': 'Node description information slot' },
-          'demoId': 'slot-description'
-        },
-        {
-          'name': 'active-node-desc',
-          'type': '',
-          'defaultValue': '',
-          'desc': { 'zh-CN': '当前节点描述信息插槽', 'en-US': '' },
-          'demoId': 'slot-active-node-desc'
-        }
-      ]
+      codeFiles: ['click.vue']
     }
   ]
 }

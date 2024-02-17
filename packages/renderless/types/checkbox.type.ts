@@ -1,6 +1,6 @@
 import type { ExtractPropTypes, ComputedRef } from 'vue'
-import { checkboxProps, $constants } from '@/checkbox/src'
-import { ISharedRenderlessFunctionParams, ISharedRenderlessParamUtils } from './shared.type'
+import type { checkboxProps, $constants } from '@/checkbox/src'
+import type { ISharedRenderlessFunctionParams, ISharedRenderlessParamUtils } from './shared.type'
 import type {
   addToStore,
   removeFromStore,
@@ -51,6 +51,8 @@ export interface ICheckboxState {
   model: ICheckboxModalValue | ICheckboxModalValue[]
   showText: boolean
   isShowText: boolean
+  tooltipVisible: boolean
+  displayedValue: string
 }
 
 export type ICheckboxProps = ExtractPropTypes<typeof checkboxProps>

@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <tiny-tree-menu :load="loadNode" lazy></tiny-tree-menu>
-  </div>
+  <tiny-tree-menu lazy :load="loadNode"></tiny-tree-menu>
 </template>
 
-<script lang="jsx">
+<script>
 import { TreeMenu } from '@opentiny/vue'
 
 export default {
@@ -21,7 +19,6 @@ export default {
       if (node.level === 0) {
         return resolve([{ label: '表单组件' }, { label: '数据组件' }])
       }
-      console.log(1232)
 
       if (node.level > 3) return resolve([])
 

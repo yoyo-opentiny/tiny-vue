@@ -11,7 +11,9 @@ export default {
   },
   methods: {
     btnClick() {
-      Modal.alert({ message: '自定义提示框的内容' })
+      Modal.alert({
+        message: <div style="color: #fa9841">11111</div>
+      })
     }
   }
 }

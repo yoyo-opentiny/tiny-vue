@@ -19,10 +19,10 @@
       @mouseenter="handleMouseenter"
       @mouseleave="handleMouseleave"
     >
-      <slot>
+      <slot :selected-index="state.selectedIndex">
         <tiny-dropdown-item
           v-for="(item, index) in options"
-          :itemData="item"
+          :item-data="item"
           :label="item[textField]"
           :key="index"
           :icon="item.icon"
@@ -42,12 +42,13 @@ import { renderless, api } from '@opentiny/vue-renderless/dropdown-menu/vue'
 import { props, setup, defineComponent } from '@opentiny/vue-common'
 import DropdownItem from '@opentiny/vue-dropdown-item'
 import '@opentiny/vue-theme/dropdown-menu/index.less'
+import type { IDropdownMenuApi } from '@opentiny/vue-renderless/types/dropdown-menu.type'
 
 export default defineComponent({
   components: {
     TinyDropdownItem: DropdownItem
   },
-  emits: ['mouseenter', 'mouseleave'],
+  emits: ['mouseenter', 'mouseleave', 'click', 'update:modelValue', 'created'],
   props: [
     ...props,
     'visibleArrow',
@@ -55,11 +56,13 @@ export default defineComponent({
     'placement',
     'popperClass',
     'popperAppendToBody',
+    'checkedStatus',
+    // tiny 新增
     'textField',
     'options'
   ],
   setup(props, context) {
-    return setup({ props, context, renderless, api })
+    return setup({ props, context, renderless, api }) as unknown as IDropdownMenuApi
   }
 })
 </script>

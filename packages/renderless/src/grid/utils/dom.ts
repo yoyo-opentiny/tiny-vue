@@ -24,7 +24,7 @@
  */
 
 import { getRowid } from './common'
-import { hasClass } from '../../common/deps/dom'
+import { hasClass, getDomNode } from '../../common/deps/dom'
 import { getActualTarget } from '../../common/event'
 import { arrayIndexOf } from '../static'
 
@@ -150,16 +150,10 @@ export const colToVisible = ($table, column, move) => {
   })
 }
 
-export const getDomNode = () => {
-  const documentElement = document.documentElement
-  const bodyElement = document.body
+export const hasDataTag = (el, value) => {
+  if (!el || !value) return false
 
-  return {
-    scrollTop: documentElement.scrollTop || bodyElement.scrollTop,
-    scrollLeft: documentElement.scrollLeft || bodyElement.scrollLeft,
-    visibleHeight: documentElement.clientHeight || bodyElement.clientHeight,
-    visibleWidth: documentElement.clientWidth || bodyElement.clientWidth
-  }
+  return (' ' + el.getAttribute('data-tag') + ' ').includes(' ' + value + ' ')
 }
 
 export const getEventTargetNode = (event, container, queryCls) => {
@@ -167,7 +161,7 @@ export const getEventTargetNode = (event, container, queryCls) => {
   let target = getActualTarget(event)
 
   while (target && target.nodeType && target !== document) {
-    if (queryCls && hasClass(target, queryCls)) {
+    if (queryCls && (hasClass(target, queryCls) || hasDataTag(target, queryCls))) {
       targetEl = target
     } else if (target === container) {
       return {
@@ -284,3 +278,5 @@ export const getCell = ($table, { row, column }) =>
       )
     })
   })
+
+export { getDomNode }

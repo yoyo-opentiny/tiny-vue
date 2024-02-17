@@ -43,7 +43,7 @@ const isStack = ({ props }) => {
 
   Object.keys(stack).forEach((key) => {
     stack[key].forEach((stackItem) => {
-      const isExist = columns.some((col) => col === stackItem)
+      const isExist = columns.includes(stackItem)
       if (isExist) {
         flag = true
       }
@@ -175,7 +175,7 @@ export const dataHandler =
       data = props.beforeConfig(data)
     }
 
-    let options = api.chartHandler(columns, rows, props.settings, extra)
+    let options = api.chartHandler(columns, rows, props.settings, extra, props.extend)
 
     if (options) {
       if (typeof options.then === 'function') {

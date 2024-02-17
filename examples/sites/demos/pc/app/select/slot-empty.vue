@@ -1,17 +1,21 @@
 <template>
-  <tiny-select v-model="value" placeholder="请选择">
+  <tiny-select v-model="value">
     <template #empty>
-      <div>没有选项</div>
+      <div class="custom-empty">
+        <p>APIG 网关异常</p>
+        <tiny-button size="small">重新加载</tiny-button>
+      </div>
     </template>
   </tiny-select>
 </template>
 
 <script>
-import { Select } from '@opentiny/vue'
+import { Select, Button } from '@opentiny/vue'
 
 export default {
   components: {
-    TinySelect: Select
+    TinySelect: Select,
+    TinyButton: Button
   },
   data() {
     return {
@@ -20,3 +24,22 @@ export default {
   }
 }
 </script>
+
+<style lang="less" scoped>
+.tiny-select {
+  width: 280px;
+}
+.custom-empty {
+  padding: 87px 0;
+  text-align: center;
+
+  p {
+    font-size: 12px;
+    color: #595959;
+    line-height: 1.5;
+  }
+  .tiny-button {
+    margin-top: 8px;
+  }
+}
+</style>

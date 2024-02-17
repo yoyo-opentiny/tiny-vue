@@ -1,14 +1,37 @@
 <template>
   <div>
-    <tiny-button @click="click1" style="max-width: unset; margin-bottom: 15px">
-      单击按钮 Select 将获取焦点
-    </tiny-button>
-    <tiny-button @click="click2" style="max-width: unset; margin-bottom: 15px">
-      单击按钮 Select 将失去焦点
-    </tiny-button>
-    <tiny-select v-model="value" ref="drop" placeholder="请选择" multiple filterable>
-      <tiny-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </tiny-option>
-    </tiny-select>
+    <div class="demo1">
+      <div>场景1：默认 focus() 后仅聚焦，不下拉</div>
+      <br />
+      <tiny-button @click="handleFocus1"> 点击获取焦点 </tiny-button>
+      <tiny-button @click="handleBlur1"> 点击失去焦点 </tiny-button>
+      <br />
+      <tiny-select v-model="value" ref="drop1">
+        <tiny-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </tiny-option>
+      </tiny-select>
+    </div>
+    <br />
+    <div class="demo2">
+      <div>场景2：配置 filterable，focus() 后聚焦并自动下拉</div>
+      <br />
+      <tiny-button @click="handleFocus2"> 点击获取焦点 </tiny-button>
+      <tiny-button @click="handleBlur2"> 点击失去焦点 </tiny-button>
+      <br />
+      <tiny-select v-model="value" ref="drop2" filterable>
+        <tiny-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </tiny-option>
+      </tiny-select>
+    </div>
+    <br />
+    <div class="demo3">
+      <div>场景2：配置 automaticDropdown，focus() 后聚焦并自动下拉</div>
+      <br />
+      <tiny-button @click="handleFocus3"> 点击获取焦点 </tiny-button>
+      <tiny-button @click="handleBlur3"> 点击失去焦点 </tiny-button>
+      <br />
+      <tiny-select v-model="value" ref="drop3" automatic-dropdown>
+        <tiny-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </tiny-option>
+      </tiny-select>
+    </div>
   </div>
 </template>
 
@@ -34,12 +57,34 @@ export default {
     }
   },
   methods: {
-    click1() {
-      this.$refs.drop.focus()
+    handleFocus1() {
+      this.$refs.drop1.focus()
     },
-    click2() {
-      this.$refs.drop.blur()
+    handleBlur1() {
+      this.$refs.drop1.blur()
+    },
+    handleFocus2() {
+      this.$refs.drop2.focus()
+    },
+    handleBlur2() {
+      this.$refs.drop2.blur()
+    },
+    handleFocus3() {
+      this.$refs.drop3.focus()
+    },
+    handleBlur3() {
+      this.$refs.drop3.blur()
     }
   }
 }
 </script>
+
+<style lang="less" scoped>
+.tiny-select {
+  width: 280px;
+}
+.tiny-button {
+  max-width: unset;
+  margin-bottom: 10px;
+}
+</style>

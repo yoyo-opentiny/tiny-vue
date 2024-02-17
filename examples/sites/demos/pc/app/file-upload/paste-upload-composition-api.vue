@@ -1,12 +1,12 @@
 <template>
   <tiny-file-upload drag accept=".png,.jpeg,.jpg" action="#" paste-upload :auto-upload="false" :max-name-length="3">
-    <icon-fileupload class="tiny-svg-size icon-fileupload"></icon-fileupload>
+    <icon-file-upload class="tiny-svg-size icon-fileupload"></icon-file-upload>
   </tiny-file-upload>
 </template>
 
-<script setup lang="jsx">
+<script setup>
 import { FileUpload as TinyFileUpload } from '@opentiny/vue'
 import { iconFileupload } from '@opentiny/vue-icon'
 
-const IconFileupload = iconFileupload()
+const IconFileUpload = iconFileupload()
 </script>

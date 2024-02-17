@@ -17,16 +17,16 @@ import {
   onTouchstart,
   onTouchmove,
   onTouchend,
+  onScroll,
   initPullRefresh,
   clearPullRefresh
 } from './index'
 
 export const api = ['state']
 
-export const renderless = (props, { watch, onMounted, reactive, onBeforeUnmount }, { t, refs }) => {
+export const renderless = (props, { watch, onMounted, reactive, onBeforeUnmount }, { t, refs, emit, nextTick }) => {
   const api = {}
   const state = reactive({
-    pullUpReplaces: '',
     pullDownReplaces: '',
     refreshStyle: {},
     translate3d: 0,
@@ -36,18 +36,26 @@ export const renderless = (props, { watch, onMounted, reactive, onBeforeUnmount 
     loosingText: '',
     successText: '',
     failedText: '',
-    noMoreText: '',
+    noMoreText: t('ui.pullRefresh.noMore'),
+    pullUpLoadingText: props.pullUpLoadingText,
+    pullDownLoadingText: props.pullDownLoadingText,
     pullUp: null,
     pullDown: null,
+    hasMore: true,
     successDuration: props.successDuration,
-    animationDuration: props.animationDuration
+    animationDuration: props.animationDuration,
+    disabledPullDown: props.disabledPullDown,
+    disabledPullUp: props.disabledPullUp,
+    pullUpDistance: typeof props.pullUpDistance === 'string' ? Number(props.pullUpDistance) : props.pullUpDistance,
+    timer: null
   })
 
   Object.assign(api, {
     state,
     onTouchstart: onTouchstart(state),
-    onTouchmove: onTouchmove({ props, state }),
-    onTouchend: onTouchend({ api, props, state }),
+    onTouchmove: onTouchmove({ state, refs }),
+    onTouchend: onTouchend({ api, props, state, emit, refs }),
+    onScroll: onScroll({ state, emit, refs }),
     mountedHandler: mountedHandler({ api, refs }),
     beforeUnmountHandler: beforeUnmountHandler({ api, refs }),
     handlerModelValue: handlerModelValue({ api, state }),
@@ -59,8 +67,16 @@ export const renderless = (props, { watch, onMounted, reactive, onBeforeUnmount 
     () => props.hasMore,
     (value) => {
       if (!value) {
-        // 没有更多了
-        state.noMoreText = t('ui.pullRefresh.noMore')
+        state.hasMore = false
+      }
+    },
+    { immediate: true }
+  )
+
+  watch(
+    () => props.modelValue,
+    (value) => {
+      if (!value) {
         api.clearPullRefresh()
       }
     }

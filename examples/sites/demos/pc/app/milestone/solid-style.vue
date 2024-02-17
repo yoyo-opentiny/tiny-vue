@@ -1,6 +1,6 @@
 <template>
   <div>
-    <tiny-button @click="handleClick(!isSolid)" style="max-width: cancel">设置solid值为{{ !isSolid }}</tiny-button>
+    <tiny-button @click="handleClick(!isSolid)" style="max-width: cancel">设置 solid 值为 {{ !isSolid }}</tiny-button>
     <tiny-milestone :data="milestoneData" :milestones-status="statusMap" :solid="isSolid"></tiny-milestone>
   </div>
 </template>
@@ -25,32 +25,32 @@ export default {
       },
       milestoneData: [
         {
-          name: '完成状态，状态值:completed',
+          name: 'completed 完成状态',
           time: '2018-9-7',
           status: 'completed'
         },
         {
-          name: '完成状态，状态值:completed',
+          name: 'completed 完成状态',
           time: '2018-9-8',
           status: 'completed'
         },
         {
-          name: '未完成状态, 状态值:doing',
+          name: 'doing 未完成状态',
           time: '2018-9-10',
           status: 'doing'
         },
         {
-          name: '未完成状态，状态值:xxx',
+          name: 'xxx 未完成状态',
           time: '2018-9-9',
           status: 'xxx'
         },
         {
-          name: '未完成状态，状态值:back',
+          name: 'back 未完成状态',
           time: '2018-9-11',
           status: 'back'
         },
         {
-          name: '未完成状态，状态值:end',
+          name: 'end 未完成状态',
           time: '2018-9-9',
           status: 'end'
         }

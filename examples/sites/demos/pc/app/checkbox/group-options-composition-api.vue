@@ -2,12 +2,12 @@
   <tiny-checkbox-group v-model="checkList" type="checkbox" :options="options"></tiny-checkbox-group>
 </template>
 
-<script setup lang="jsx">
+<script setup>
 import { ref } from 'vue'
 import { CheckboxGroup as TinyCheckboxGroup, Modal } from '@opentiny/vue'
 
 function handleClick() {
-  Modal.message({ message: 'click' })
+  Modal.message({ message: 'click', status: 'info' })
 }
 const checkList = ref(['A'])
 const options = ref([

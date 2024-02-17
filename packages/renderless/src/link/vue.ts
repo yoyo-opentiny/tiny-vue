@@ -10,17 +10,22 @@
  *
  */
 import type { ILinkState, ILinkProps, ILinkRenderlessParamUtils, ISharedRenderlessParamHooks, ILinkApi } from '@/types'
-
+import { xss } from '../common/xss'
 import { handleClick } from './index'
 
 export const api = ['state', 'handleClick']
 
-export const renderless = (props: ILinkProps, { inject, reactive, computed }: ISharedRenderlessParamHooks, { emit, parent }: ILinkRenderlessParamUtils): ILinkApi => {
+export const renderless = (
+  props: ILinkProps,
+  { inject, reactive, computed }: ISharedRenderlessParamHooks,
+  { emit, parent }: ILinkRenderlessParamUtils
+): ILinkApi => {
   parent.tinyForm = parent.tinyForm || inject('form', null)
 
   const state: ILinkState = reactive({
     formDisabled: computed(() => (parent.tinyForm || {}).disabled),
-    disabled: computed(() => props.disabled || state.formDisabled)
+    disabled: computed(() => props.disabled || state.formDisabled),
+    href: computed(() => xss.filterUrl(props.href))
   })
 
   return {

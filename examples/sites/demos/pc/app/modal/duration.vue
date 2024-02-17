@@ -1,12 +1,12 @@
 <template>
   <div class="content">
-    <tiny-button @click="baseClick" :reset-time="0">默认3000ms后自动关闭提示框</tiny-button>
-    <tiny-button @click="successClick" :reset-time="0">500ms后自动关闭提示框</tiny-button>
-    <tiny-button @click="errorClick" :reset-time="0">5000ms后自动关闭提示框</tiny-button>
+    <tiny-button @click="baseClick" :reset-time="0">默认3000ms 后自动关闭提示框</tiny-button>
+    <tiny-button @click="successClick" :reset-time="0">500ms 后自动关闭提示框</tiny-button>
+    <tiny-button @click="errorClick" :reset-time="0">5000ms 后自动关闭提示框</tiny-button>
   </div>
 </template>
 
-<script lang="jsx">
+<script>
 import { Button, Modal } from '@opentiny/vue'
 
 export default {
@@ -15,19 +15,19 @@ export default {
   },
   methods: {
     baseClick() {
-      Modal.message({ message: '默认3000ms后自动关闭提示框' })
+      Modal.message({ status: 'info', message: `默认3000ms 后自动关闭提示框` })
     },
     successClick() {
       Modal.message({
-        message: '500ms后自动关闭提示框',
         status: 'success',
+        message: `500ms 后自动关闭提示框`,
         duration: '500'
       })
     },
     errorClick() {
       Modal.message({
-        message: '5000ms后自动关闭提示框',
         status: 'error',
+        message: `5000ms 后自动关闭提示框`,
         duration: '5000'
       })
     }

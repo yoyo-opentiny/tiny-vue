@@ -8,6 +8,7 @@ dist-react/
 allDist/
 packages/**/runtime
 coverage/
+test-results
 
 /packages/vue/index.ts
 /packages/vue/pc.ts
@@ -21,8 +22,10 @@ coverage/
 /packages/react/pc.ts
 /packages/react/mobile.ts
 /packages/react/app.ts
+/packages/react/mobile-first.ts
 
 /examples/**/playwright-report
+/examples/**/test-results
 vite.config.ts.timestamp*
 vitest.config.ts.timestamp*
 
@@ -57,3 +60,10 @@ packages/theme/scripts/themeExcel.xlsx
 packages/theme/src/theme/*-theme/component.js
 
 pnpm-lock.yaml
+gulp/bundle.json
+
+# 本地构建的saas相关资源文件
+examples/sites/public/tiny-vue*.js
+examples/sites/public/tiny-vue*.mjs
+examples/sites/public/tailwind.css
+examples/sites/public/index.css

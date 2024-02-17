@@ -12,6 +12,9 @@
 
 import { on, off } from '../common/deps/dom'
 
+// 上拉触发事件超时时间
+const PULL_UP_TIME_OUT = 300
+
 export const initPullRefresh =
   ({ t, props, state }) =>
   () => {
@@ -20,16 +23,11 @@ export const initPullRefresh =
       pullingDownText: t('ui.pullRefresh.pullingDown'),
       pullUpDisabled: false,
       pullDownDisabled: false,
-      headHeight: 50,
-      footHeight: 50
+      headHeight: 48
     }
 
     state.pullUp = { ...defaultOption, ...props.pullUp }
     state.pullDown = { ...defaultOption, ...props.pullDown }
-    state.refreshStyle = {
-      paddingTop: state.pullDown.headHeight + 'px',
-      paddingBottom: state.pullUp.footHeight + 'px'
-    }
     state.loosingText = props.loosingText ?? t('ui.pullRefresh.loosing')
     state.successText = props.successText ?? t('ui.pullRefresh.success')
     state.failedText = props.failedText ?? t('ui.pullRefresh.failed')
@@ -40,89 +38,78 @@ export const onTouchstart = (state) => (event) => {
 }
 
 export const onTouchmove =
-  ({ props, state }) =>
+  ({ state, refs }) =>
   (event) => {
-    if (event.touches[0].clientY < state.draggposition) {
-      // 上拉刷新
-      if (!state.pullUp.pullUpDisabled) {
-        // 没有更多了
-        if (props.hasMore) {
-          state.translate3d = (event.touches[0].clientY - state.draggposition) / 2
-          state.pullUpReplaces =
-            Math.abs(state.translate3d) > state.pullUp.footHeight ? state.loosingText : state.pullUp.pullingUpText
-          state.pullDownReplaces = ''
-        }
-      }
-    } else {
-      // 下拉刷新
-      if (!state.pullDown.pullDownDisabled) {
-        state.translate3d = (event.touches[0].clientY - state.draggposition) / 2
-        state.pullDownReplaces =
-          Math.abs(state.translate3d) > state.pullDown.headHeight ? state.loosingText : state.pullDown.pullingDownText
-        state.pullUpReplaces = ''
-      }
+    if (event.touches[0].clientY > state.draggposition) {
+      pullDownTouchMove(state, refs, event)
     }
-
-    state.animationDuration = 0
-    state.pullUpLoading = false
-    state.pullDownLoading = false
   }
 
+export const pullDownTouchMove = (state, refs, event) => {
+  if (state.disabledPullDown || state.pullDownLoading) {
+    return
+  }
+
+  if (refs.content.scrollTop <= 0) {
+    event.preventDefault()
+
+    state.translate3d = (event.touches[0].clientY - state.draggposition) / 2
+    state.pullDownReplaces =
+      Math.abs(state.translate3d) > state.pullDown.headHeight ? state.loosingText : state.pullDown.pullingDownText
+  }
+  state.animationDuration = 0
+}
+
 export const onTouchend =
-  ({ api, props, state }) =>
-  () => {
+  ({ api, props, state, emit, refs }) =>
+  (event) => {
     state.animationDuration = props.animationDuration
-
-    // 上拉/下拉超过指定的高度触发刷新
-    if (
-      Math.abs(state.translate3d) >= state.pullDown.headHeight ||
-      Math.abs(state.translate3d) >= state.pullUp.footHeight
-    ) {
-      if (state.translate3d >= 0) {
-        // 下拉刷新
-        state.translate3d = state.pullDown.headHeight
-        const { handler } = state.pullDown
-        const pullDownPromise = handler && handler()
-        state.pullDownLoading = true
-        if (pullDownPromise?.then) {
-          pullDownPromise.then(
-            () => {
-              api.handlerModelValue('down', 'success')
-            },
-            (e) => {
-              api.handlerModelValue('down', 'failed')
-            }
-          )
-          return
-        }
-        console.error(new Error('handler down is not promise'))
-      } else {
-        // 上拉刷新
-        state.translate3d = -state.pullUp.footHeight
-        const { handler } = state.pullUp
-        const pullUpPromise = handler && handler()
-        state.pullUpLoading = true
-
-        if (pullUpPromise?.then) {
-          pullUpPromise.then(
-            () => {
-              api.handlerModelValue('up', 'success')
-            },
-            (e) => {
-              api.handlerModelValue('up', 'failed')
-            }
-          )
-          return
-        }
-        console.error(new Error('handler up is not promise'))
-      }
-      api.clearPullRefresh()
+    if (event.changedTouches[0].clientY < state.draggposition) {
+      // 上拉
+      pullUpTouchEnd(state, emit, refs)
     } else {
-      // 上拉/下拉未超过指定的高度，不触发刷新，回弹
-      state.pullUpLoading = false
-      state.pullDownLoading = false
-      api.clearPullRefresh()
+      // 下拉
+      pullDownTouchEnd(api, state, emit)
     }
+  }
+
+export const pullDownTouchEnd = (api, state, emit) => {
+  if (Math.abs(state.translate3d) < state.pullDown.headHeight) {
+    state.pullDownLoading = false
+    api.clearPullRefresh()
+    return
+  }
+
+  state.translate3d = state.pullDown.headHeight
+  state.pullDownLoading = true
+  emit('update:modelValue', true)
+  emit('pullDown')
+}
+
+export const pullUpTouchEnd = (state, emit, refs) => {
+  clearTimeout(state.timer)
+
+  state.timer = setTimeout(() => {
+    const footNode = refs.foot
+
+    if (!state.hasMore || !footNode) {
+      return
+    }
+
+    const contentNode = refs.content
+    const bottomDis = footNode.offsetTop + footNode.clientHeight - contentNode.scrollTop - contentNode.clientHeight
+    if (bottomDis <= state.pullUpDistance) {
+      state.pullUpLoading = true
+      emit('update:modelValue', true)
+      emit('pullUp')
+    }
+  }, PULL_UP_TIME_OUT)
+}
+
+export const onScroll =
+  ({ state, emit, refs }) =>
+  () => {
+    pullUpTouchEnd(state, emit, refs)
   }
 
 export const mountedHandler =
@@ -133,6 +120,7 @@ export const mountedHandler =
     on(track, 'touchstart', api.onTouchstart)
     on(track, 'touchmove', api.onTouchmove)
     on(track, 'touchend', api.onTouchend)
+    on(track, 'scroll', api.onScroll)
   }
 
 export const beforeUnmountHandler =
@@ -143,6 +131,7 @@ export const beforeUnmountHandler =
     off(track, 'touchstart', api.onTouchstart)
     off(track, 'touchmove', api.onTouchmove)
     off(track, 'touchend', api.onTouchend)
+    off(track, 'scroll', api.onScroll)
   }
 
 export const handlerModelValue =
@@ -154,7 +143,7 @@ export const handlerModelValue =
     if (value === 'down') {
       state.pullDownReplaces = state[`${result}Text`]
     } else {
-      state.pullUpReplaces = state[`${result}Text`]
+      state.pullUpStateText = state[`${result}Text`]
     }
     setTimeout(() => {
       api.clearPullRefresh()
@@ -163,6 +152,7 @@ export const handlerModelValue =
 
 export const clearPullRefresh = (state) => () => {
   state.translate3d = 0
-  state.pullUpReplaces = ''
   state.pullDownReplaces = ''
+  state.pullDownLoading = false
+  state.pullUpLoading = false
 }
