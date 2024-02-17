@@ -48,7 +48,7 @@ jobs:
             }
       - name: generate user-tip.txt
         if: ${{ steps.parseTitle.outputs.tip }}
-        run: echo ${{ steps.parseTitle.outputs.tip }} > user-tip.txt
+        run: echo "${{ steps.parseTitle.outputs.tip }}" > user-tip.txt
       - name: Upload User Tip
         if: ${{ steps.parseTitle.outputs.tip }}
         uses: actions/upload-artifact@v4
