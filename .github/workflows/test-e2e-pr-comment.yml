@@ -1,4 +1,4 @@
-name: test-e2e-pr-comment
+name: test-e2e-pr-comment2
 
 on:
   workflow_run:
