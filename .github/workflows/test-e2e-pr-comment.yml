@@ -1,4 +1,4 @@
-name: test-e2e-pr-comment
+name: test-e2e-pr-comment2
 
 on:
   workflow_run:
@@ -20,8 +20,9 @@ jobs:
       - name: Save PR Id
         id: pr
         run: |
+          ls
           if [ -f user-tip.txt ]; then
-            echo "::set-output name=id::$(<pr-id.txt)"
+            echo "id=" && cat pr-id.txt >> $GITHUB_OUTPUT
           fi
 
       - name: Download user-tip.txt
@@ -33,8 +34,9 @@ jobs:
 
       - id: txtToOutput
         run: |
+          ls
           if [ -f user-tip.txt ]; then
-            echo "::set-output name=text::$(<user-tip.txt)"
+            echo "text=" && cat user-tip.txt >> $GITHUB_OUTPUT
           fi
       - uses: thollander/actions-comment-pull-request@v2
         if: ${{ steps.txtToOutput.outputs.text && steps.pr.outputs.id }}
