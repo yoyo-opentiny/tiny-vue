@@ -38,9 +38,10 @@ jobs:
             cat user-tip.txt >> $GITHUB_OUTPUT
             echo 'EOF' >> $GITHUB_OUTPUT
           fi
+      - run: echo ${{ steps.pr.outputs.id }}
       - uses: thollander/actions-comment-pull-request@v2
         with:
+          pr_number: ${{ steps.pr.outputs.id }}
           message: |
             ${{ steps.txtToOutput.outputs.text }}
           comment_tag: e2e-tip
-          pr_number: ${{ steps.pr.outputs.id }}
