@@ -1,4 +1,4 @@
-name: test-e2e-pr-comment
+name: test-e2e-pr-comment2
 
 on:
   workflow_run:
@@ -40,6 +40,7 @@ jobs:
           fi
       - run: |
           echo  ${{ steps.txtToOutput.outputs.text }}
+      - run: |
           echo  ${{ steps.pr.outputs.id }}
       - uses: thollander/actions-comment-pull-request@v2
         if: ${{ steps.txtToOutput.outputs.text && steps.pr.outputs.id }}
