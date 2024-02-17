@@ -22,7 +22,7 @@ jobs:
         run: |
           ls
           if [ -f user-tip.txt ]; then
-            echo "id=" && cat pr-id.txt >> $GITHUB_OUTPUT
+            echo "id="$(cat pr-id.txt)" >> $GITHUB_OUTPUT
           fi
 
       - name: Download user-tip.txt
@@ -36,7 +36,7 @@ jobs:
         run: |
           ls
           if [ -f user-tip.txt ]; then
-            echo "text=" && cat user-tip.txt >> $GITHUB_OUTPUT
+            echo "text="$(cat user-tip.txt)" >> $GITHUB_OUTPUT
           fi
       - uses: thollander/actions-comment-pull-request@v2
         if: ${{ steps.txtToOutput.outputs.text && steps.pr.outputs.id }}
